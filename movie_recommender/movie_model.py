@@ -1,23 +1,40 @@
-import pandas as pd
-from surprise import Dataset, SVD
-from surprise.model_selection import train_test_split
-from surprise import accuracy
+"""
+Bollywood & Indian Movie Recommender Model.
+Exposes a clean API for standalone movie recommendations and chaining.
+"""
 
-ratings = pd.read_csv("data/movie/ratings.csv")
-movies = pd.read_csv("data/movie/movies.csv")
+import sys
+from pathlib import Path
 
-data = Dataset.load_from_df(
-    ratings[["userId", "movieId", "rating"]],
-    reader=__import__("surprise").Reader(rating_scale=(0.5, 5))
-)
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
 
-trainset, testset = train_test_split(data, test_size=0.2, random_state=42)
+BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(BASE_DIR))
 
-model = SVD()
-model.fit(trainset)
+from ai_entertainment_recommender.recommender import UnifiedEntertainmentRecommender
 
-predictions = model.test(testset)
 
-print("Movie Recommendation Model")
-accuracy.rmse(predictions)
-accuracy.mae(predictions)
+class BollywoodMovieModel:
+    def __init__(self):
+        self.engine = UnifiedEntertainmentRecommender(auto_train=True)
+
+    def recommend(self, movie_name: str, top_n: int = 10, era: str = None, genre: str = None) -> list[dict]:
+        """Recommends movies similar to the given movie query."""
+        results = self.engine.recommend(
+            query=movie_name,
+            mode="movies",
+            era_filter=era,
+            genre_filter=genre,
+            top_n=top_n
+        )
+        return results.get("movies", [])
+
+
+if __name__ == "__main__":
+    model = BollywoodMovieModel()
+    test_query = "Dangal"
+    print(f"Top Movie Recommendations for '{test_query}':")
+    recs = model.recommend(test_query, top_n=5)
+    for i, m in enumerate(recs, 1):
+        print(f"{i}. {m['title']} ({m.get('release_year')}) - Score: {m.get('similarity_score')} [{m.get('reason')}]")

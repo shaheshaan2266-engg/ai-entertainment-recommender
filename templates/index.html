@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Velora AI — Movies × Music × Intelligence</title>
+  <meta name="description" content="Velora AI — Intelligent Entertainment Discovery. AI-powered recommender connecting Indian cinema, songs, artists and stories spanning 1950s classics to 2026.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <!-- Full Application Wrapper -->
+  <div class="velora-app cinevibe-app">
+
+    <!-- ======================================================== -->
+    <!-- LEFT SIDEBAR                                             -->
+    <!-- ======================================================== -->
+    <aside class="sidebar-left" id="sidebar-left">
+      <!-- Brand Logo -->
+      <div class="sidebar-brand">
+        <div class="brand-logo-icon">
+          <svg class="reel-spin-slow" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="44" stroke="#8b5cf6" stroke-width="4" stroke-dasharray="8 6"/>
+            <circle cx="50" cy="50" r="36" fill="#141124" stroke="#6366f1" stroke-width="2"/>
+            <circle cx="50" cy="28" r="9" fill="#0d0918" stroke="#06b6d4" stroke-width="2.5"/>
+            <circle cx="69" cy="40" r="9" fill="#0d0918" stroke="#06b6d4" stroke-width="2.5"/>
+            <circle cx="62" cy="65" r="9" fill="#0d0918" stroke="#06b6d4" stroke-width="2.5"/>
+            <circle cx="38" cy="65" r="9" fill="#0d0918" stroke="#06b6d4" stroke-width="2.5"/>
+            <circle cx="31" cy="40" r="9" fill="#0d0918" stroke="#06b6d4" stroke-width="2.5"/>
+            <circle cx="50" cy="50" r="14" fill="#8b5cf6" stroke="#ffffff" stroke-width="2"/>
+            <circle cx="50" cy="50" r="5" fill="#ffffff"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-name">Velora <span class="ai-cyan">AI</span></div>
+          <div class="brand-tagline">Movies &times; Music &times; Intelligence</div>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="sidebar-nav">
+        <a href="#home" class="nav-item active" id="nav-home">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </span>
+          <span class="nav-label">Home</span>
+        </a>
+
+        <a href="#discover" class="nav-item" id="nav-discover">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+            </svg>
+          </span>
+          <span class="nav-label">Discover</span>
+        </a>
+
+        <a href="#graph" class="nav-item" id="nav-graph">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+            </svg>
+          </span>
+          <span class="nav-label">Graph Explorer</span>
+        </a>
+
+        <a href="#mylist" class="nav-item" id="nav-mylist">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </span>
+          <span class="nav-label">My List</span>
+          <span class="nav-count-badge hidden" id="badge-my-list">0</span>
+        </a>
+
+        <a href="#favorites" class="nav-item" id="nav-favorites">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </span>
+          <span class="nav-label">Favorites</span>
+          <span class="nav-count-badge hidden" id="badge-favorites">0</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar Artistic Doodles & Clean Aesthetic -->
+      <div class="sidebar-doodles">
+        <div class="doodle-quote">
+          <span>Different</span>
+          <span>Stories.</span>
+          <span>Unified</span>
+          <span class="quote-cyan">Vibes.</span>
+        </div>
+
+        <!-- Film Strip Ribbon Doodle SVG -->
+        <div class="doodle-film-ribbon">
+          <svg viewBox="0 0 140 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 20 C 40 10, 80 50, 60 85 C 50 100, 20 105, 10 115" stroke="rgba(255, 255, 255, 0.35)" stroke-width="2.5" stroke-dasharray="6 4" />
+            <path d="M22 24 C 52 14, 92 54, 72 89 C 62 104, 32 109, 22 119" stroke="rgba(255, 255, 255, 0.35)" stroke-width="2.5" stroke-dasharray="6 4" />
+            <circle cx="78" cy="48" r="16" stroke="rgba(255, 255, 255, 0.45)" stroke-width="2" />
+            <circle cx="78" cy="48" r="6" fill="rgba(255, 255, 255, 0.25)" />
+            <circle cx="78" cy="38" r="3" fill="rgba(255, 255, 255, 0.45)" />
+            <circle cx="86" cy="44" r="3" fill="rgba(255, 255, 255, 0.45)" />
+            <circle cx="84" cy="54" r="3" fill="rgba(255, 255, 255, 0.45)" />
+            <circle cx="72" cy="54" r="3" fill="rgba(255, 255, 255, 0.45)" />
+            <circle cx="70" cy="44" r="3" fill="rgba(255, 255, 255, 0.45)" />
+          </svg>
+        </div>
+
+        <div class="doodle-badge">
+          <div class="badge-line">Bollywood</div>
+          <div class="badge-plus">+</div>
+          <div class="badge-line">Pan-Indian</div>
+          <div class="badge-plus">+</div>
+          <div class="badge-line badge-cyan">Soundtracks</div>
+        </div>
+
+        <!-- Cinema Reel Spool Bottom Doodle -->
+        <div class="doodle-reel-bottom">
+          <svg viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="55" cy="75" r="48" stroke="rgba(255, 255, 255, 0.25)" stroke-width="3" stroke-dasharray="10 6" />
+            <circle cx="55" cy="75" r="38" stroke="rgba(255, 255, 255, 0.18)" stroke-width="1.5" />
+            <circle cx="55" cy="75" r="16" fill="rgba(255, 255, 255, 0.08)" stroke="rgba(255, 255, 255, 0.35)" stroke-width="2" />
+            <circle cx="55" cy="45" r="8" fill="rgba(15, 12, 28, 0.9)" stroke="rgba(255, 255, 255, 0.3)" stroke-width="1.5" />
+            <circle cx="78" cy="62" r="8" fill="rgba(15, 12, 28, 0.9)" stroke="rgba(255, 255, 255, 0.3)" stroke-width="1.5" />
+            <circle cx="70" cy="92" r="8" fill="rgba(15, 12, 28, 0.9)" stroke="rgba(255, 255, 255, 0.3)" stroke-width="1.5" />
+            <circle cx="40" cy="92" r="8" fill="rgba(15, 12, 28, 0.9)" stroke="rgba(255, 255, 255, 0.3)" stroke-width="1.5" />
+            <circle cx="32" cy="62" r="8" fill="rgba(15, 12, 28, 0.9)" stroke="rgba(255, 255, 255, 0.3)" stroke-width="1.5" />
+            <path d="M55 27 C 75 22, 105 35, 120 55" stroke="rgba(255, 255, 255, 0.3)" stroke-width="2" stroke-dasharray="4 4" />
+          </svg>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ======================================================== -->
+    <!-- MAIN CONTENT CENTER                                      -->
+    <!-- ======================================================== -->
+    <main class="main-content" id="main-content">
+
+      <!-- HERO BANNER -->
+      <section class="hero-banner" id="hero-banner">
+        <div class="hero-bg-media">
+          <img src="/static/images/hero_sunset_banner.jpg" alt="Velora Cinematic Sunset Skyline" class="hero-bg-img" />
+          <div class="hero-overlay-gradient"></div>
+        </div>
+
+        <!-- Left Heading & Modern Cursive Typography (No Lovey/Heart Theme) -->
+        <div class="hero-left-content">
+          <h1 class="hero-cursive-title">
+            Find Your<br>
+            Next Obsession
+          </h1>
+          <p class="hero-subtitle">Movies, Songs, Artists, Stories...<br>All Intelligently Connected</p>
+        </div>
+
+        <!-- Right Annotations & Tilted Polaroids -->
+        <div class="hero-right-content">
+          <div class="hero-annotation-box">
+            <div class="annotation-text">
+              Same emotions.<br>
+              Different forms.<br>
+              One universe.
+            </div>
+            <!-- Cassette & Audio Notes SVG -->
+            <div class="cassette-doodle">
+              <svg viewBox="0 0 110 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="5" y="5" width="100" height="60" rx="6" stroke="rgba(255, 255, 255, 0.75)" stroke-width="2" fill="rgba(20, 16, 32, 0.5)"/>
+                <rect x="18" y="16" width="74" height="38" rx="4" stroke="rgba(255, 255, 255, 0.6)" stroke-width="1.5"/>
+                <circle cx="36" cy="35" r="9" stroke="rgba(255, 255, 255, 0.8)" stroke-width="2"/>
+                <circle cx="36" cy="35" r="3" fill="rgba(255, 255, 255, 0.8)"/>
+                <circle cx="74" cy="35" r="9" stroke="rgba(255, 255, 255, 0.8)" stroke-width="2"/>
+                <circle cx="74" cy="35" r="3" fill="rgba(255, 255, 255, 0.8)"/>
+                <rect x="44" y="27" width="22" height="16" rx="2" stroke="rgba(255, 255, 255, 0.5)" stroke-width="1"/>
+              </svg>
+              <span class="note note-1">♫</span>
+              <span class="note note-2">♪</span>
+              <span class="note note-3">♬</span>
+            </div>
+          </div>
+
+          <!-- Polaroids & Vinyl Stack -->
+          <div class="hero-polaroid-stack">
+            <!-- Vinyl Record peeking out -->
+            <div class="vinyl-record">
+              <div class="vinyl-groove"></div>
+              <div class="vinyl-center"></div>
+            </div>
+
+            <!-- Polaroid 1 -->
+            <div class="polaroid-card polaroid-top">
+              <div class="polaroid-img-wrap">
+                <img src="/static/images/poster_znmd.jpg" alt="Iconic Cinema Memory" />
+              </div>
+            </div>
+
+            <!-- Polaroid 2 -->
+            <div class="polaroid-card polaroid-mid">
+              <div class="polaroid-img-wrap">
+                <img src="/static/images/poster_dil_chahta_hai.jpg" alt="Iconic Cinema Memory" />
+              </div>
+            </div>
+
+            <!-- Polaroid 3 -->
+            <div class="polaroid-card polaroid-bottom">
+              <div class="polaroid-img-wrap">
+                <img src="/static/images/poster_rockstar.jpg" alt="Iconic Cinema Memory" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEARCH BAR & FILTER TABS -->
+      <section class="search-section">
+        <div class="search-bar-wrap">
+          <div class="search-pill-box">
+            <span class="search-lens-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </span>
+            <input 
+              type="text" 
+              id="search-input" 
+              class="search-input" 
+              placeholder="Search movies, songs, actors, filmmakers or filter by genres & year..." 
+              autocomplete="off" 
+              spellcheck="false"
+            />
+            <button class="search-clear-btn hidden" id="search-clear-btn" title="Clear search">✕</button>
+            <button class="search-filters-toggle-btn" id="search-filters-toggle-btn" title="Filter by Multi-Genres & Release Year">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+              </svg>
+              <span class="filters-btn-label">Filters</span>
+              <span class="active-filters-count hidden" id="active-filters-count">0</span>
+            </button>
+            <button class="search-mic-btn" id="search-mic-btn" title="Voice search">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                <line x1="12" y1="19" x2="12" y2="23"></line>
+                <line x1="8" y1="23" x2="16" y2="23"></line>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Typeahead Autocomplete Dropdown -->
+          <div class="autocomplete-panel hidden" id="autocomplete-panel">
+            <div class="autocomplete-items" id="autocomplete-items"></div>
+          </div>
+        </div>
+
+        <!-- Filter Buttons: Movies, Songs, Both (with animated light sweep and pop-up) -->
+        <div class="filter-pills-row" id="filter-pills-row">
+          <button class="filter-pill active" data-mode="movies" id="filter-movies">
+            <span class="pill-icon">🎥</span>
+            <span>Movies</span>
+          </button>
+          <button class="filter-pill" data-mode="songs" id="filter-songs">
+            <span class="pill-icon">🎵</span>
+            <span>Songs</span>
+          </button>
+          <button class="filter-pill" data-mode="both" id="filter-both">
+            <span class="pill-icon">✨</span>
+            <span>Both</span>
+          </button>
+        </div>
+
+        <!-- Active Filter Badges Bar (Shows when filters are selected) -->
+        <div class="active-filters-bar hidden" id="active-filters-bar">
+          <span class="active-filters-label">Active Filters:</span>
+          <div class="active-filter-chips-list" id="active-filter-chips-list"></div>
+          <button class="clear-all-filters-btn" id="clear-all-filters-btn">Clear All</button>
+        </div>
+
+        <!-- Expandable Cyber-Cinema Multi-Genre & Year Filter Drawer -->
+        <div class="search-filter-panel hidden" id="search-filter-panel">
+          <div class="filter-panel-header">
+            <div class="filter-panel-title">
+              <span class="filter-panel-icon">⚡</span>
+              <span class="filter-panel-heading">Combinatorial Genre &amp; Year Filter</span>
+              <span class="filter-mode-indicator" id="filter-mode-indicator">🎥 Movies Mode</span>
+            </div>
+            <div class="filter-panel-actions">
+              <button class="filter-reset-btn" id="filter-reset-btn" title="Reset all selections">Reset All</button>
+              <button class="filter-close-btn" id="filter-close-btn" title="Close filter panel">✕</button>
+            </div>
+          </div>
+
+          <div class="filter-panel-body">
+            <!-- Multi-Genre Selection -->
+            <div class="filter-block">
+              <div class="filter-block-header">
+                <div>
+                  <span class="filter-block-title">Select Multiple Genres (Combinations)</span>
+                  <span class="filter-multi-badge">Multi-Select Enabled</span>
+                </div>
+                <span class="filter-block-hint" id="genre-hint-text">Select 1 or more genres to discover high-affinity combination matches</span>
+              </div>
+              <div class="genre-chips-container" id="genre-chips-container">
+                <!-- Dynamically populated based on active tab -->
+              </div>
+            </div>
+
+            <!-- Year Filter Selection -->
+            <div class="filter-block">
+              <div class="filter-block-header">
+                <span class="filter-block-title">Release Year / Era Filter</span>
+                <span class="filter-block-hint">Filter by historical era preset or exact release year</span>
+              </div>
+              <div class="year-filter-row">
+                <div class="year-presets-chips" id="year-presets-chips">
+                  <!-- Preset pills populated dynamically -->
+                </div>
+                <div class="exact-year-wrap">
+                  <label for="exact-year-select" class="exact-year-label">Exact Year:</label>
+                  <select id="exact-year-select" class="exact-year-select">
+                    <option value="All">All Years</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer with Selection Summary and Apply Button -->
+          <div class="filter-panel-footer">
+            <div class="active-tags-summary" id="active-tags-summary">
+              <span class="no-tags-hint">No filters selected. Click any genre chips or years above.</span>
+            </div>
+            <button class="apply-filters-btn" id="apply-filters-btn">
+              <span>Apply Filters</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- DYNAMIC SEARCH RESULTS SECTION (Shown when searching) -->
+      <section class="search-results-section hidden" id="search-results-section">
+        <div class="results-banner">
+          <div class="results-meta">
+            <span class="results-badge" id="results-badge">Identified Match</span>
+            <h3 class="results-heading">Results for: <span id="query-highlight" class="query-highlight"></span></h3>
+            <p class="results-detail" id="results-detail"></p>
+          </div>
+          <div class="results-actions">
+            <button class="chain-btn-accent" id="explore-chain-top-btn">
+              <span>🕸️ Relational Chain</span>
+            </button>
+            <button class="close-results-btn" id="close-results-btn">
+              <span>✕ Back to Feed</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="results-grid" id="search-results-grid"></div>
+      </section>
+
+      <!-- DISCOVER SECTION (Activated via Discover Tab) -->
+      <section class="content-section discover-hub hidden" id="section-discover">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <div class="section-title-row">
+              <span class="icon-sparkle-cyan">🧭</span>
+              <h2 class="section-heading">Curated Discovery Hub</h2>
+            </div>
+            <p class="section-subtext">Filter across iconic cinema eras and thematic soundscapes</p>
+          </div>
+        </div>
+
+        <!-- Eras & Genres Quick Filters -->
+        <div class="discover-controls">
+          <div class="discover-filter-block">
+            <span class="filter-block-label">Select Era:</span>
+            <div class="discover-chips" id="discover-eras">
+              <button class="era-chip active" data-era="All">All Eras</button>
+              <button class="era-chip" data-era="Latest (2020-2026)">2020–2026</button>
+              <button class="era-chip" data-era="2010s Blockbusters">2010s</button>
+              <button class="era-chip" data-era="2000s New Wave">2000s</button>
+              <button class="era-chip" data-era="90s Golden Romance">90s Golden</button>
+              <button class="era-chip" data-era="70s-80s Classics">70s–80s</button>
+            </div>
+          </div>
+
+          <div class="discover-filter-block">
+            <span class="filter-block-label">Select Genre:</span>
+            <div class="discover-chips" id="discover-genres">
+              <button class="genre-chip active" data-genre="All">All Genres</button>
+              <button class="genre-chip" data-genre="Action">Action &amp; Epic</button>
+              <button class="genre-chip" data-genre="Drama">Drama</button>
+              <button class="genre-chip" data-genre="Romance">Soulful</button>
+              <button class="genre-chip" data-genre="Thriller">Thriller</button>
+              <button class="genre-chip" data-genre="Comedy">Comedy</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="discover-results-grid" id="discover-results-grid"></div>
+      </section>
+
+      <!-- SECTION 1: TRENDING RIGHT NOW -->
+      <section class="content-section" id="section-trending">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <div class="section-title-row">
+              <span class="icon-flame-cyan">🔥</span>
+              <h2 class="section-heading" id="trending-heading">Trending Right Now</h2>
+            </div>
+            <p class="section-subtext">Because exceptional cinema and music transcend eras</p>
+          </div>
+          <a href="#" class="view-all-link" id="view-all-trending">View All &rarr;</a>
+        </div>
+
+        <!-- Carousel Row with Arrow -->
+        <div class="carousel-container">
+          <div class="carousel-track" id="trending-carousel">
+
+            <!-- Card 1: Rockstar -->
+            <div class="poster-card" data-title="Rockstar" data-type="movie">
+              <div class="poster-media">
+                <img src="/static/images/poster_rockstar.jpg" alt="Rockstar" loading="lazy" />
+                <span class="stream-badge-pill">▶ JioCinema</span>
+                <button class="card-save-btn" title="Save to list" data-title="Rockstar" data-type="movie">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                </button>
+                <span class="type-pill pill-purple">Music</span>
+              </div>
+              <div class="poster-body">
+                <h3 class="card-title">Rockstar</h3>
+                <p class="card-genre">Musical &bull; Drama</p>
+                <div class="card-tags-row">
+                  <span class="tag-chip">Music</span>
+                  <span class="tag-chip">A.R. Rahman</span>
+                </div>
+                <div class="card-feature-tag">🎵 Popular Songs</div>
+              </div>
+            </div>
+
+            <!-- Card 2: Dil Chahta Hai -->
+            <div class="poster-card" data-title="Dil Chahta Hai" data-type="movie">
+              <div class="poster-media">
+                <img src="/static/images/poster_dil_chahta_hai.jpg" alt="Dil Chahta Hai" loading="lazy" />
+                <span class="stream-badge-pill">▶ Netflix</span>
+                <button class="card-save-btn" title="Save to list" data-title="Dil Chahta Hai" data-type="movie">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                </button>
+                <span class="type-pill pill-blue">Movie</span>
+              </div>
+              <div class="poster-body">
+                <h3 class="card-title">Dil Chahta Hai</h3>
+                <p class="card-genre">Friendship &bull; Drama</p>
+                <div class="card-tags-row">
+                  <span class="tag-chip">Farhan Akhtar</span>
+                </div>
+                <div class="card-feature-tag">Coming of Age</div>
+              </div>
+            </div>
+
+            <!-- Card 3: RRR -->
+            <div class="poster-card" data-title="RRR" data-type="movie">
+              <div class="poster-media">
+                <img src="/static/images/poster_rrr.jpg" alt="RRR" loading="lazy" />
+                <span class="stream-badge-pill">▶ Netflix</span>
+                <button class="card-save-btn" title="Save to list" data-title="RRR" data-type="movie">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                </button>
+                <span class="type-pill pill-blue">Movie</span>
+              </div>
+              <div class="poster-body">
+                <h3 class="card-title">RRR</h3>
+                <p class="card-genre">Action &bull; Drama</p>
+                <div class="card-tags-row">
+                  <span class="tag-chip">👤 S.S. Rajamouli</span>
+                </div>
+                <div class="card-feature-tag">💬 Epic Spectacle</div>
+              </div>
+            </div>
+
+            <!-- Card 4: Kesariya -->
+            <div class="poster-card" data-title="Kesariya" data-type="song">
+              <div class="poster-media">
+                <img src="/static/images/poster_kesariya.jpg" alt="Kesariya" loading="lazy" />
+                <span class="stream-badge-pill">▶ Spotify</span>
+                <button class="card-save-btn" title="Save to list" data-title="Kesariya" data-type="song">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                </button>
+                <span class="type-pill pill-purple">Music</span>
+              </div>
+              <div class="poster-body">
+                <h3 class="card-title">Kesariya</h3>
+                <p class="card-genre">Song &bull; Brahmastra</p>
+                <div class="card-tags-row">
+                  <span class="tag-chip">👤 Arijit Singh</span>
+                </div>
+                <div class="card-feature-tag">✨ Melodic Track</div>
+              </div>
+            </div>
+
+            <!-- Card 5: Kabir Singh -->
+            <div class="poster-card" data-title="Kabir Singh" data-type="movie">
+              <div class="poster-media">
+                <img src="/static/images/poster_kabir_singh.jpg" alt="Kabir Singh" loading="lazy" />
+                <span class="stream-badge-pill">▶ Netflix</span>
+                <button class="card-save-btn" title="Save to list" data-title="Kabir Singh" data-type="movie">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                </button>
+                <span class="type-pill pill-blue">Movie</span>
+              </div>
+              <div class="poster-body">
+                <h3 class="card-title">Kabir Singh</h3>
+                <p class="card-genre">Drama &bull; Romance</p>
+                <div class="card-tags-row">
+                  <span class="tag-chip">👤 Sandeep Vanga</span>
+                </div>
+                <div class="card-feature-tag">⚡ Intense Drama</div>
+              </div>
+            </div>
+
+            <!-- Card 6: Taare Zameen Par -->
+            <div class="poster-card" data-title="Taare Zameen Par" data-type="movie">
+              <div class="poster-media">
+                <img src="/static/images/poster_taare_zameen_par.png" alt="Taare Zameen Par" loading="lazy" />
+                <span class="stream-badge-pill">▶ Netflix</span>
+                <button class="card-save-btn" title="Save to list" data-title="Taare Zameen Par" data-type="movie">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                </button>
+                <span class="type-pill pill-blue">Movie</span>
+              </div>
+              <div class="poster-body">
+                <h3 class="card-title">Taare Zameen Par</h3>
+                <p class="card-genre">Drama &bull; Family</p>
+                <div class="card-tags-row">
+                  <span class="tag-chip">👤 Aamir Khan</span>
+                </div>
+                <div class="card-feature-tag">💬 Emotional Landmark</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Carousel Scroll Arrow -->
+          <button class="carousel-arrow-btn" id="btn-trending-next" title="Scroll right">&rsaquo;</button>
+        </div>
+      </section>
+
+      <!-- SECTION 2: EXPLORE BY ENTITY -->
+      <section class="content-section" id="section-entity">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <div class="section-title-row">
+              <div class="mask-badge-icon">🎭</div>
+              <h2 class="section-heading">Explore by Entity</h2>
+            </div>
+            <p class="section-subtext">Jump to your favourite artists, directors, composers and creative minds</p>
+          </div>
+        </div>
+
+        <div class="carousel-container">
+          <div class="entity-track" id="entity-carousel">
+
+            <!-- Entity 1: Shah Rukh Khan -->
+            <div class="entity-item" data-type="actor" data-name="Shah Rukh Khan">
+              <div class="avatar-ring ring-cyan">
+                <img src="/static/images/avatar_srk.jpg" alt="Shah Rukh Khan" />
+              </div>
+              <div class="entity-info">
+                <div class="entity-name">Shah Rukh Khan</div>
+                <div class="entity-role">Actor</div>
+              </div>
+            </div>
+
+            <!-- Entity 2: A.R. Rahman -->
+            <div class="entity-item" data-type="composer" data-name="A.R. Rahman">
+              <div class="avatar-ring ring-emerald">
+                <img src="/static/images/avatar_ar_rahman.jpg" alt="A.R. Rahman" />
+              </div>
+              <div class="entity-info">
+                <div class="entity-name">A.R. Rahman</div>
+                <div class="entity-role">Composer</div>
+              </div>
+            </div>
+
+            <!-- Entity 3: Arijit Singh -->
+            <div class="entity-item" data-type="singer" data-name="Arijit Singh">
+              <div class="avatar-ring ring-indigo">
+                <img src="/static/images/avatar_arijit_singh.jpg" alt="Arijit Singh" />
+              </div>
+              <div class="entity-info">
+                <div class="entity-name">Arijit Singh</div>
+                <div class="entity-role">Singer</div>
+              </div>
+            </div>
+
+            <!-- Entity 4: S.S. Rajamouli -->
+            <div class="entity-item" data-type="director" data-name="S.S. Rajamouli">
+              <div class="avatar-ring ring-blue">
+                <img src="/static/images/avatar_rajamouli.jpg" alt="S.S. Rajamouli" />
+              </div>
+              <div class="entity-info">
+                <div class="entity-name">S.S. Rajamouli</div>
+                <div class="entity-role">Director</div>
+              </div>
+            </div>
+
+            <!-- Entity 5: Alia Bhatt -->
+            <div class="entity-item" data-type="actor" data-name="Alia Bhatt">
+              <div class="avatar-ring ring-orange">
+                <img src="/static/images/avatar_alia_bhatt.jpg" alt="Alia Bhatt" />
+              </div>
+              <div class="entity-info">
+                <div class="entity-name">Alia Bhatt</div>
+                <div class="entity-role">Actor</div>
+              </div>
+            </div>
+
+            <!-- Entity 6: Pritam -->
+            <div class="entity-item" data-type="composer" data-name="Pritam">
+              <div class="avatar-ring ring-purple">
+                <img src="/static/images/avatar_pritam.jpg" alt="Pritam" />
+              </div>
+              <div class="entity-info">
+                <div class="entity-name">Pritam</div>
+                <div class="entity-role">Composer</div>
+              </div>
+            </div>
+
+          </div>
+
+          <button class="carousel-arrow-btn" id="btn-entity-next" title="Scroll right">&rsaquo;</button>
+        </div>
+      </section>
+
+      <!-- SECTION 3: GET BOTH - MOVIE + MUSIC -->
+      <section class="content-section" id="section-dual">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <div class="section-title-row">
+              <span class="icon-sparkle-cyan">✨</span>
+              <h2 class="section-heading">Get Both &ndash; Movie + Music</h2>
+            </div>
+            <p class="section-subtext">One search. Synergistic cross-domain results.</p>
+          </div>
+        </div>
+
+        <div class="dual-cards-grid">
+
+          <!-- Wide Card 1: 3 Idiots -->
+          <div class="dual-card" data-title="3 Idiots">
+            <div class="dual-card-thumb">
+              <img src="/static/images/poster_3_idiots.jpg" alt="3 Idiots" />
+            </div>
+            <div class="dual-card-details">
+              <h4 class="dual-card-title">3 Idiots</h4>
+              <p class="dual-card-sub">Movie + Soundtrack</p>
+            </div>
+            <button class="dual-explore-btn" data-query="3 Idiots">Explore</button>
+          </div>
+
+          <!-- Wide Card 2: Kesariya -->
+          <div class="dual-card" data-title="Kesariya">
+            <div class="dual-card-thumb">
+              <img src="/static/images/poster_kesariya.jpg" alt="Kesariya" />
+            </div>
+            <div class="dual-card-details">
+              <h4 class="dual-card-title">Kesariya</h4>
+              <p class="dual-card-sub">Song + Related Films</p>
+            </div>
+            <button class="dual-explore-btn" data-query="Kesariya">Explore</button>
+          </div>
+
+          <!-- Wide Card 3: Zindagi Na Milegi Dobara -->
+          <div class="dual-card" data-title="Zindagi Na Milegi Dobara">
+            <div class="dual-card-thumb">
+              <img src="/static/images/poster_znmd.jpg" alt="Zindagi Na Milegi Dobara" />
+            </div>
+            <div class="dual-card-details">
+              <h4 class="dual-card-title">Zindagi Na Milegi Dobara</h4>
+              <p class="dual-card-sub">Movie + Playlist</p>
+            </div>
+            <button class="dual-explore-btn" data-query="Zindagi Na Milegi Dobara">Explore</button>
+          </div>
+
+          <!-- Wide Card 4: Channa Mereya -->
+          <div class="dual-card" data-title="Channa Mereya">
+            <div class="dual-card-thumb">
+              <img src="/static/images/poster_channa_mereya.jpg" alt="Channa Mereya" />
+            </div>
+            <div class="dual-card-details">
+              <h4 class="dual-card-title">Channa Mereya</h4>
+              <p class="dual-card-sub">Song + Film Connections</p>
+            </div>
+            <button class="dual-explore-btn" data-query="Channa Mereya">Explore</button>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ======================================================== -->
+    <!-- RIGHT SIDEBAR PANEL                                      -->
+    <!-- ======================================================== -->
+    <aside class="panel-right" id="panel-right">
+
+      <!-- Your Recent Searches -->
+      <div class="recent-searches-box">
+        <div class="panel-header-row">
+          <span class="panel-icon">🕒</span>
+          <h3 class="panel-heading">Your Recent Searches</h3>
+        </div>
+
+        <div class="recent-list" id="recent-searches-list">
+
+          <div class="recent-item" data-query="3 Idiots">
+            <div class="recent-thumb">
+              <img src="/static/images/poster_3_idiots.jpg" alt="3 Idiots" />
+            </div>
+            <div class="recent-meta">
+              <div class="recent-title">3 Idiots</div>
+              <div class="recent-type">(Movie)</div>
+            </div>
+            <span class="recent-arrow">&rarr;</span>
+          </div>
+
+          <div class="recent-item" data-query="Arijit Singh">
+            <div class="recent-thumb">
+              <img src="/static/images/avatar_arijit_singh.jpg" alt="Arijit Singh" />
+            </div>
+            <div class="recent-meta">
+              <div class="recent-title">Arijit Singh</div>
+              <div class="recent-type">(Singer)</div>
+            </div>
+            <span class="recent-arrow">&rarr;</span>
+          </div>
+
+          <div class="recent-item" data-query="Kesariya">
+            <div class="recent-thumb">
+              <img src="/static/images/poster_kesariya.jpg" alt="Kesariya" />
+            </div>
+            <div class="recent-meta">
+              <div class="recent-title">Kesariya</div>
+              <div class="recent-type">(Song)</div>
+            </div>
+            <span class="recent-arrow">&rarr;</span>
+          </div>
+
+          <div class="recent-item" data-query="S.S. Rajamouli">
+            <div class="recent-thumb">
+              <img src="/static/images/avatar_rajamouli.jpg" alt="S.S. Rajamouli" />
+            </div>
+            <div class="recent-meta">
+              <div class="recent-title">S.S. Rajamouli</div>
+              <div class="recent-type">(Director)</div>
+            </div>
+            <span class="recent-arrow">&rarr;</span>
+          </div>
+
+          <div class="recent-item" data-query="Dil Chahta Hai">
+            <div class="recent-thumb">
+              <img src="/static/images/poster_dil_chahta_hai.jpg" alt="Romance 2000s" />
+            </div>
+            <div class="recent-meta">
+              <div class="recent-title">Romance 2000s</div>
+              <div class="recent-type">(Mood/Theme)</div>
+            </div>
+            <span class="recent-arrow">&rarr;</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Modern Intelligent Connections Card -->
+      <div class="connection-quote-card">
+        <div class="quote-cursive-line1">Not just recommendations,</div>
+        <div class="quote-cursive-line2">Intelligent connections.</div>
+        <div class="quote-footer">
+          <span>Powered by</span>
+          <div class="powered-reel-icon">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="20" r="16" stroke="#06b6d4" stroke-width="2"/>
+              <circle cx="20" cy="20" r="6" fill="#8b5cf6"/>
+              <circle cx="20" cy="10" r="3" fill="#ffffff"/>
+              <circle cx="29" cy="20" r="3" fill="#ffffff"/>
+              <circle cx="20" cy="29" r="3" fill="#ffffff"/>
+              <circle cx="11" cy="20" r="3" fill="#ffffff"/>
+            </svg>
+            <span class="neural-sound-bar">
+              <i></i><i></i><i></i><i></i>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Explore 2x2 Grid -->
+      <div class="quick-explore-box">
+        <div class="panel-header-row">
+          <span class="panel-icon">✨</span>
+          <h3 class="panel-heading">Quick Explore</h3>
+        </div>
+
+        <div class="quick-grid">
+          <button class="quick-tile" data-action="top_movies">
+            <span class="quick-icon">🎬</span>
+            <span class="quick-label">Top 10<br>Movies</span>
+          </button>
+
+          <button class="quick-tile" data-action="top_songs">
+            <span class="quick-icon">🎵</span>
+            <span class="quick-label">Top 10<br>Songs</span>
+          </button>
+
+          <button class="quick-tile" data-action="trending_artists">
+            <span class="quick-icon">👥</span>
+            <span class="quick-label">Trending<br>Artists</span>
+          </button>
+
+          <button class="quick-tile" data-action="latest_releases">
+            <span class="quick-icon">⚡</span>
+            <span class="quick-label">Latest<br>Releases</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Back to Top Button -->
+      <button class="floating-top-btn" id="floating-top-btn" title="Back to Top">
+        <div class="top-btn-icon">
+          <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="15" cy="15" r="13" stroke="rgba(255, 255, 255, 0.4)" stroke-width="2"/>
+            <circle cx="15" cy="15" r="5" fill="#06b6d4"/>
+            <circle cx="15" cy="7" r="2.5" fill="#ffffff"/>
+            <circle cx="22" cy="15" r="2.5" fill="#ffffff"/>
+            <circle cx="15" cy="22" r="2.5" fill="#ffffff"/>
+            <circle cx="8" cy="15" r="2.5" fill="#ffffff"/>
+          </svg>
+        </div>
+        <span class="top-btn-text">Back to Top</span>
+      </button>
+
+    </aside>
+
+    <!-- ======================================================== -->
+    <!-- FAR-RIGHT 35mm FILM STRIP BORDER                         -->
+    <!-- ======================================================== -->
+    <div class="vertical-filmstrip-edge" aria-hidden="true">
+      <div class="sprocket-track track-left">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="filmstrip-frames">
+        <div class="film-frame"><img src="/static/images/poster_dil_chahta_hai.jpg" alt="" /></div>
+        <div class="film-frame"><img src="/static/images/poster_rockstar.jpg" alt="" /></div>
+        <div class="film-frame"><img src="/static/images/poster_rrr.jpg" alt="" /></div>
+        <div class="film-frame"><img src="/static/images/poster_3_idiots.jpg" alt="" /></div>
+        <div class="film-frame"><img src="/static/images/poster_znmd.jpg" alt="" /></div>
+        <div class="film-frame"><img src="/static/images/poster_kabir_singh.jpg" alt="" /></div>
+        <div class="film-frame"><img src="/static/images/poster_kesariya.jpg" alt="" /></div>
+        <div class="film-frame"><img src="/static/images/poster_taare_zameen_par.png" alt="" /></div>
+      </div>
+      <div class="sprocket-track track-right">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- KNOWLEDGE GRAPH CHAINING MODAL / DRAWER                  -->
+  <!-- ======================================================== -->
+  <div class="chain-modal-overlay hidden" id="chain-modal-overlay">
+    <div class="chain-modal-dialog" id="chain-modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-badge" id="modal-badge">Actor</span>
+          <h3 class="modal-name" id="modal-name">Entity Name</h3>
+        </div>
+        <button class="modal-close-btn" id="modal-close-btn">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="graph-quick-selector">
+          <span class="quick-lbl">Quick Explore Entity:</span>
+          <div class="quick-entity-chips">
+            <button class="entity-pick-btn" data-type="actor" data-name="Shah Rukh Khan">Shah Rukh Khan</button>
+            <button class="entity-pick-btn" data-type="composer" data-name="A.R. Rahman">A.R. Rahman</button>
+            <button class="entity-pick-btn" data-type="singer" data-name="Arijit Singh">Arijit Singh</button>
+            <button class="entity-pick-btn" data-type="director" data-name="S.S. Rajamouli">S.S. Rajamouli</button>
+            <button class="entity-pick-btn" data-type="actor" data-name="Alia Bhatt">Alia Bhatt</button>
+            <button class="entity-pick-btn" data-type="composer" data-name="Pritam">Pritam</button>
+          </div>
+        </div>
+
+        <div class="modal-stats" id="modal-stats"></div>
+
+        <div class="modal-section" id="section-modal-collabs">
+          <h4 class="modal-section-title">🤝 Frequent Collaborations &amp; Creative Partners</h4>
+          <div class="modal-chips-row" id="modal-collabs-list"></div>
+        </div>
+
+        <div class="modal-section" id="section-modal-movies">
+          <h4 class="modal-section-title">🎬 Linked Cinema &amp; Filmography</h4>
+          <div class="modal-cards-scroll" id="modal-movies-list"></div>
+        </div>
+
+        <div class="modal-section" id="section-modal-songs">
+          <h4 class="modal-section-title">🎵 Linked Songs &amp; Melodies</h4>
+          <div class="modal-cards-scroll" id="modal-songs-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MY LIST / FAVORITES DRAWER MODAL                         -->
+  <!-- ======================================================== -->
+  <div class="list-drawer-overlay hidden" id="list-drawer-overlay">
+    <div class="list-drawer-dialog" id="list-drawer-dialog">
+      <div class="drawer-header">
+        <div class="drawer-title-group">
+          <span class="drawer-badge" id="drawer-badge">Saved Collection</span>
+          <h3 class="drawer-title" id="drawer-title">My List</h3>
+        </div>
+        <div class="drawer-header-actions">
+          <button class="drawer-clear-btn" id="drawer-clear-btn">Clear All</button>
+          <button class="drawer-close-btn" id="drawer-close-btn">✕</button>
+        </div>
+      </div>
+      <div class="drawer-body">
+        <div class="drawer-items-list" id="drawer-items-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- WATCH AVAILABILITY & TECHNICAL INFORMATION MODAL         -->
+  <!-- ======================================================== -->
+  <div class="watch-modal-overlay hidden" id="watch-modal-overlay">
+    <div class="watch-modal-dialog" id="watch-modal-dialog">
+      <div class="watch-modal-header">
+        <div class="watch-header-meta">
+          <div class="watch-badge-strip">
+            <span class="watch-badge-pill" id="watch-cert-badge">U/A 16+</span>
+            <span class="watch-badge-pill pill-cyan" id="watch-res-badge">4K UHD · HDR</span>
+            <span class="watch-badge-pill pill-purple" id="watch-audio-badge">Dolby Atmos</span>
+            <div class="watch-meter-badge" id="watch-rating-badge" title="Audience Vibe Meter">
+              <span class="meter-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+              </span>
+              <span class="meter-bar-levels" id="modal-meter-bars">
+                <span class="m-bar active"></span>
+                <span class="m-bar active"></span>
+                <span class="m-bar active"></span>
+                <span class="m-bar active"></span>
+                <span class="m-bar active"></span>
+              </span>
+              <span class="rating-color-dot" id="modal-rating-dot" style="background:#a855f7;"></span>
+              <span class="rating-tier-label" id="modal-rating-label">Must Watch</span>
+            </div>
+          </div>
+          <h2 class="watch-modal-title" id="watch-modal-title">Title Here</h2>
+          <p class="watch-modal-subtitle" id="watch-modal-subtitle">2024 &bull; 2h 45m &bull; Action, Thriller &bull; Pan-India</p>
+          
+          <!-- Interactive Rating Selector Strip -->
+          <div class="modal-rating-selector-strip" id="modal-rating-selector-strip">
+            <span class="rating-strip-label">Rate this:</span>
+            <div class="rating-tier-buttons" id="modal-tier-buttons">
+              <button type="button" class="tier-btn" data-tier="bad" title="Bad">
+                <span class="tier-dot dot-bad"></span> Bad
+              </button>
+              <button type="button" class="tier-btn" data-tier="ok-ish" title="OK-ish">
+                <span class="tier-dot dot-ok"></span> OK-ish
+              </button>
+              <button type="button" class="tier-btn" data-tier="good" title="Good">
+                <span class="tier-dot dot-good"></span> Good
+              </button>
+              <button type="button" class="tier-btn" data-tier="go-for-it" title="Go for it">
+                <span class="tier-dot dot-go"></span> Go for it
+              </button>
+              <button type="button" class="tier-btn" data-tier="must" title="Must Watch / Listen">
+                <span class="tier-dot dot-must"></span> <span id="modal-must-text">Must Watch</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <button class="watch-close-btn" id="watch-close-btn">✕</button>
+      </div>
+
+      <!-- Watch Modal Tabs -->
+      <div class="watch-tab-nav">
+        <button class="watch-tab-btn active" data-tab="streaming">
+          <span>📺 Where to Watch</span>
+        </button>
+        <button class="watch-tab-btn" data-tab="tech">
+          <span>⚡ Technical Specs</span>
+        </button>
+        <button class="watch-tab-btn" data-tab="trailer">
+          <span id="tab-trailer-label">🎬 Watch Trailer</span>
+        </button>
+        <button class="watch-tab-btn" data-tab="soundtrack">
+          <span>🎵 Soundtracks</span>
+        </button>
+      </div>
+
+      <div class="watch-modal-body">
+        <!-- Tab 1: Streaming Platforms -->
+        <div class="watch-tab-content active" id="tab-content-streaming">
+          <div class="streaming-section-intro">
+            <span class="stream-pulse-dot"></span>
+            <span id="streaming-availability-status">Available on Official Streaming Platforms</span>
+          </div>
+
+          <!-- Quick Watch & Trailer Hero Banner -->
+          <div class="watch-hero-action-banner" id="watch-hero-banner">
+            <div class="hero-action-text">
+              <h4 id="hero-banner-title">Watch Now on Leading Platforms</h4>
+              <p id="hero-banner-desc">Explore verified official streaming partners including JioHotstar, Netflix, and YouTube.</p>
+            </div>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="hero-trailer-direct-btn" id="hero-trailer-direct-btn">
+              <span id="hero-trailer-btn-text">🎬 Watch Official Trailer</span>
+            </a>
+          </div>
+
+          <div class="platforms-grid" id="platforms-grid"></div>
+          
+          <div class="external-aggregators-bar">
+            <span>Also check on:</span>
+            <a href="#" target="_blank" class="aggregator-link" id="link-justwatch">JustWatch ↗</a>
+            <a href="#" target="_blank" class="aggregator-link" id="link-googleplay">Google TV ↗</a>
+          </div>
+        </div>
+
+        <!-- Tab 2: Technical Specifications -->
+        <div class="watch-tab-content" id="tab-content-tech">
+          <div class="tech-specs-grid" id="tech-specs-grid"></div>
+        </div>
+
+        <!-- Tab 3: Official Trailer / Video Song -->
+        <div class="watch-tab-content" id="tab-content-trailer">
+          <div class="trailer-container" id="trailer-container">
+            <div class="trailer-actions-card">
+              <h4 id="trailer-card-title">Watch Official Cinema Trailer</h4>
+              <p id="trailer-card-desc">Experience the official high-definition preview, teaser, and clips directly on YouTube.</p>
+              <a href="#" target="_blank" class="launch-trailer-btn" id="launch-trailer-btn">
+                <span id="launch-trailer-btn-text">▶ Play Official Trailer on YouTube</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4: Connected Soundtracks -->
+        <div class="watch-tab-content" id="tab-content-soundtrack">
+          <div class="soundtrack-list" id="soundtrack-list"></div>
+        </div>
+      </div>
+
+      <!-- Watch Modal Footer Action Bar (High Value Extra Features) -->
+      <div class="watch-modal-footer">
+        <div class="watch-footer-actions">
+          <button class="watch-action-pill" id="watch-act-recommend">
+            <span>✨ AI Vibe Match</span>
+          </button>
+          <button class="watch-action-pill" id="watch-act-graph">
+            <span>🕸️ Knowledge Graph</span>
+          </button>
+          <button class="watch-action-pill" id="watch-act-save">
+            <span id="watch-save-text">📑 Save to Collection</span>
+          </button>
+          <button class="watch-action-pill pill-secondary" id="watch-act-share">
+            <span>🔗 Copy Watch Info</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio / Trailer Preview Toast -->
+  <div class="audio-toast hidden" id="audio-toast">
+    <div class="toast-left">
+      <div class="sound-wave">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <div class="toast-info">
+        <div class="toast-title" id="toast-title">Song Title</div>
+        <div class="toast-artist" id="toast-artist">Singer &bull; Movie</div>
+      </div>
+    </div>
+    <div class="toast-right">
+      <a href="#" target="_blank" class="toast-play-link" id="toast-play-link">Watch on YouTube ↗</a>
+      <button class="toast-close" id="toast-close">✕</button>
+    </div>
+  <!-- Floating Quick Rating Popover -->
+  <div class="rating-popover hidden" id="card-rating-popover">
+    <div class="popover-arrow"></div>
+    <div class="popover-header">
+      <span class="popover-title" id="popover-target-title">Rate Title</span>
+      <button class="popover-close-btn" id="popover-close-btn">✕</button>
+    </div>
+    <div class="popover-options">
+      <button type="button" class="popover-tier-btn" data-tier="bad">
+        <span class="tier-dot dot-bad"></span>
+        <span class="pop-tier-text">Bad</span>
+        <span class="pop-tier-hint">Skip it</span>
+      </button>
+      <button type="button" class="popover-tier-btn" data-tier="ok-ish">
+        <span class="tier-dot dot-ok"></span>
+        <span class="pop-tier-text">OK-ish</span>
+        <span class="pop-tier-hint">Timepass</span>
+      </button>
+      <button type="button" class="popover-tier-btn" data-tier="good">
+        <span class="tier-dot dot-good"></span>
+        <span class="pop-tier-text">Good</span>
+        <span class="pop-tier-hint">Enjoyable</span>
+      </button>
+      <button type="button" class="popover-tier-btn" data-tier="go-for-it">
+        <span class="tier-dot dot-go"></span>
+        <span class="pop-tier-text">Go for it</span>
+        <span class="pop-tier-hint">Recommended</span>
+      </button>
+      <button type="button" class="popover-tier-btn" data-tier="must">
+        <span class="tier-dot dot-must"></span>
+        <span class="pop-tier-text" id="pop-tier-must-text">Must Watch</span>
+        <span class="pop-tier-hint">Masterpiece</span>
+      </button>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
