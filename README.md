@@ -18,6 +18,19 @@
 ---
 
 ## 🛠️ Technology Stack
+## How the Recommendation System Works
+
+Cinevibe AI uses a content-based recommendation approach to help users discover movies and music based on their preferences.
+
+The system uses TF-IDF vectorization and cosine similarity to identify similarities between entertainment items.
+
+**Recommendation Workflow:**
+
+1. **User Input:** Users select their preferred genres, release years, or other available filters.
+2. **Data Processing:** The system uses the movie and music datasets to find relevant entertainment content.
+3. **Similarity Matching:** TF-IDF and cosine similarity help identify items with similar characteristics.
+4. **Recommendations:** The application displays matching movies or songs for users to explore.
+5. **Further Discovery:** Users can explore related artists and access available streaming platforms.
 
 - **Backend**: Python 3, Flask REST API
 - **Machine Learning**: Scikit-Learn (`TfidfVectorizer`, Cosine Similarity), NumPy, Pandas
