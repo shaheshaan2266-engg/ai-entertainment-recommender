@@ -1,5 +1,5 @@
 """
-Multi-Epoch Training & Hyperparameter Optimization Pipeline for Velora AI Recommender.
+Multi-Epoch Training & Hyperparameter Optimization Pipeline for Cinevibe AI Recommender.
 Iteratively trains, evaluates, tunes feature weights, sweeps SVD latent dimensions,
 and optimizes ensemble fusion weights to achieve peak NDCG@10, MAP@10, and sub-50ms latency.
 """
@@ -490,7 +490,7 @@ class OptimizedRecommenderEngine:
 
 def run_multi_epoch_optimization():
     print("=" * 80)
-    print("VELORA AI: MULTI-EPOCH TRAINING, BENCHMARKING & HYPERPARAMETER OPTIMIZATION")
+    print("CINEVIBE AI: MULTI-EPOCH TRAINING, BENCHMARKING & HYPERPARAMETER OPTIMIZATION")
     print("=" * 80)
     
     df_movies = load_bollywood_movies()

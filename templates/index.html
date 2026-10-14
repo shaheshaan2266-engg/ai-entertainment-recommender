@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Velora AI — Movies × Music × Intelligence</title>
-  <meta name="description" content="Velora AI — Intelligent Entertainment Discovery. AI-powered recommender connecting Indian cinema, songs, artists and stories spanning 1950s classics to 2026.">
+  <title>Cinevibe AI — Movies × Music × Intelligence</title>
+  <meta name="description" content="Cinevibe AI — Intelligent Entertainment Discovery. AI-powered recommender connecting Indian cinema, songs, artists and stories spanning 1950s classics to 2026.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
 <body>
 
   <!-- Full Application Wrapper -->
-  <div class="velora-app cinevibe-app">
+  <div class="cinevibe-app velora-app">
 
     <!-- ======================================================== -->
     <!-- LEFT SIDEBAR                                             -->
@@ -35,7 +35,7 @@
           </svg>
         </div>
         <div class="brand-text">
-          <div class="brand-name">Velora <span class="ai-cyan">AI</span></div>
+          <div class="brand-name">Cinevibe <span class="ai-cyan">AI</span></div>
           <div class="brand-tagline">Movies &times; Music &times; Intelligence</div>
         </div>
       </div>
@@ -94,6 +94,16 @@
           <span class="nav-label">Favorites</span>
           <span class="nav-count-badge hidden" id="badge-favorites">0</span>
         </a>
+
+        <a href="#profile" class="nav-item" id="nav-profile">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </span>
+          <span class="nav-label">Profile</span>
+        </a>
       </nav>
 
       <!-- Sidebar Artistic Doodles & Clean Aesthetic -->
@@ -143,6 +153,26 @@
           </svg>
         </div>
       </div>
+
+      <!-- User Profile Tab at Left Bottom Corner -->
+      <div class="sidebar-profile-tab" id="sidebar-profile-tab" title="Click to view Profile &amp; Account">
+        <div class="profile-avatar-wrap">
+          <div class="profile-avatar-circle" id="sidebar-avatar-circle">
+            <span id="sidebar-avatar-text">🎬</span>
+          </div>
+          <span class="profile-status-dot" title="Active"></span>
+        </div>
+        <div class="profile-info-text">
+          <span class="profile-name" id="sidebar-profile-name">Shiva</span>
+          <span class="profile-role" id="sidebar-profile-role">VIP Cinephile</span>
+        </div>
+        <button class="profile-settings-btn" id="sidebar-profile-settings-btn" aria-label="Account Settings" title="Profile &amp; Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </div>
     </aside>
 
     <!-- ======================================================== -->
@@ -153,7 +183,7 @@
       <!-- HERO BANNER -->
       <section class="hero-banner" id="hero-banner">
         <div class="hero-bg-media">
-          <img src="/static/images/hero_sunset_banner.jpg" alt="Velora Cinematic Sunset Skyline" class="hero-bg-img" />
+          <img src="/static/images/hero_sunset_banner.jpg" alt="Cinevibe Cinematic Sunset Skyline" class="hero-bg-img" />
           <div class="hero-overlay-gradient"></div>
         </div>
 
@@ -370,7 +400,46 @@
           </div>
         </div>
 
-        <div class="results-grid" id="search-results-grid"></div>
+        <!-- Featured Exact Match Spotlight (Spotlight for the searched movie or song) -->
+        <div class="search-spotlight-card hidden" id="search-spotlight-card"></div>
+
+        <!-- Results Sub-Navigation Filter Tabs -->
+        <div class="results-subnav" id="results-subnav">
+          <button type="button" class="results-tab-btn active" data-tab="all" id="tab-results-all">All Matches (<span id="count-all">0</span>)</button>
+          <button type="button" class="results-tab-btn" data-tab="movies" id="tab-results-movies">🎬 Similar Movies (<span id="count-movies">0</span>)</button>
+          <button type="button" class="results-tab-btn" data-tab="songs" id="tab-results-songs">🎵 Related Music (<span id="count-songs">0</span>)</button>
+        </div>
+
+        <!-- Grouped Columns Container -->
+        <div class="search-columns-container" id="search-columns-container">
+          <!-- Movies Column -->
+          <div class="search-column-block" id="search-movies-column">
+            <div class="column-header">
+              <div class="column-title-row">
+                <span class="column-icon">🎬</span>
+                <h4 class="column-title">Similar &amp; Recommended Movies</h4>
+                <span class="column-count-badge" id="badge-movies-count">0</span>
+              </div>
+              <span class="column-subtext">AI ranked by Director, Theme &amp; Entity synergy</span>
+            </div>
+            <div class="results-grid" id="search-movies-grid"></div>
+          </div>
+
+          <!-- Songs Column -->
+          <div class="search-column-block" id="search-songs-column">
+            <div class="column-header">
+              <div class="column-title-row">
+                <span class="column-icon">🎵</span>
+                <h4 class="column-title">Related Soundtracks &amp; Songs</h4>
+                <span class="column-count-badge" id="badge-songs-count">0</span>
+              </div>
+              <span class="column-subtext">Vocalists, Composers &amp; Thematic harmonies</span>
+            </div>
+            <div class="results-grid" id="search-songs-grid"></div>
+          </div>
+        </div>
+
+        <div class="results-grid hidden" id="search-results-grid"></div>
       </section>
 
       <!-- DISCOVER SECTION (Activated via Discover Tab) -->
@@ -1144,6 +1213,182 @@
         <span class="pop-tier-text" id="pop-tier-must-text">Must Watch</span>
         <span class="pop-tier-hint">Masterpiece</span>
       </button>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- USER AUTHENTICATION MODAL (SIGN IN / CREATE ACCOUNT)     -->
+  <!-- ======================================================== -->
+  <div class="auth-modal-overlay hidden" id="auth-modal-overlay">
+    <div class="auth-modal-box">
+      <button class="auth-close-btn" id="auth-close-btn" aria-label="Close">✕</button>
+
+      <div class="auth-header">
+        <div class="auth-brand-logo">
+          <svg class="reel-spin-slow" viewBox="0 0 100 100" fill="none" style="width:40px;height:40px;">
+            <circle cx="50" cy="50" r="44" stroke="#8b5cf6" stroke-width="4" stroke-dasharray="8 6"/>
+            <circle cx="50" cy="50" r="36" fill="#141124" stroke="#6366f1" stroke-width="2"/>
+            <circle cx="50" cy="14" r="5" fill="#06b6d4"/>
+            <circle cx="50" cy="50" r="14" fill="#8b5cf6" stroke="#ffffff" stroke-width="2"/>
+            <circle cx="50" cy="50" r="5" fill="#ffffff"/>
+          </svg>
+        </div>
+        <h3 class="auth-title" id="auth-title">Welcome to Cinevibe AI</h3>
+        <p class="auth-subtext" id="auth-subtext">Sign in to sync your personal watchlist, ratings, and AI vibes.</p>
+      </div>
+
+      <!-- Auth Mode Switcher -->
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab-btn active" id="auth-tab-login">Sign In</button>
+        <button type="button" class="auth-tab-btn" id="auth-tab-signup">Create Account</button>
+      </div>
+
+      <form id="auth-form" class="auth-form">
+        <div class="auth-field" id="auth-name-field" style="display: none;">
+          <label for="auth-input-name">Display Name</label>
+          <div class="auth-input-wrap">
+            <span class="auth-field-icon">👤</span>
+            <input type="text" id="auth-input-name" placeholder="e.g. Shiva" autocomplete="name" />
+          </div>
+        </div>
+
+        <div class="auth-field">
+          <label for="auth-input-email">Email Address</label>
+          <div class="auth-input-wrap">
+            <span class="auth-field-icon">✉️</span>
+            <input type="email" id="auth-input-email" placeholder="shiva@cinevibe.ai" required autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="auth-field">
+          <label for="auth-input-password">Password</label>
+          <div class="auth-input-wrap">
+            <span class="auth-field-icon">🔒</span>
+            <input type="password" id="auth-input-password" placeholder="••••••••" required autocomplete="current-password" />
+            <button type="button" class="auth-toggle-pwd" id="auth-toggle-pwd" title="Show/Hide Password">👁️</button>
+          </div>
+        </div>
+
+        <!-- Cinema Persona / Avatar Picker -->
+        <div class="auth-field" id="auth-avatar-field" style="display: none;">
+          <label>Select Cinema Persona</label>
+          <div class="auth-avatar-options" id="auth-avatar-options">
+            <button type="button" class="avatar-opt-btn active" data-avatar="🎬">🎬</button>
+            <button type="button" class="avatar-opt-btn" data-avatar="🍿">🍿</button>
+            <button type="button" class="avatar-opt-btn" data-avatar="🎧">🎧</button>
+            <button type="button" class="avatar-opt-btn" data-avatar="🌟">🌟</button>
+            <button type="button" class="avatar-opt-btn" data-avatar="🕶️">🕶️</button>
+            <button type="button" class="avatar-opt-btn" data-avatar="🎵">🎵</button>
+            <button type="button" class="avatar-opt-btn" data-avatar="🚀">🚀</button>
+            <button type="button" class="avatar-opt-btn" data-avatar="🎭">🎭</button>
+          </div>
+        </div>
+
+        <div class="auth-error-msg hidden" id="auth-error-msg"></div>
+
+        <button type="submit" class="auth-submit-btn" id="auth-submit-btn">
+          <span>Sign In to Cinevibe</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+
+        <div class="auth-divider">
+          <span>or explore instantly</span>
+        </div>
+
+        <button type="button" class="auth-demo-btn" id="auth-demo-btn">
+          <span>⚡ Continue as Shiva (Quick Demo)</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- USER PROFILE & ACCOUNT DRAWER MODAL                      -->
+  <!-- ======================================================== -->
+  <div class="profile-drawer-overlay hidden" id="profile-drawer-overlay">
+    <div class="profile-drawer-box">
+      <div class="profile-drawer-header">
+        <div class="profile-header-main">
+          <div class="profile-drawer-avatar-wrap">
+            <div class="profile-drawer-avatar" id="profile-modal-avatar">🎬</div>
+            <button class="profile-avatar-edit-badge" id="profile-avatar-edit-badge" title="Change Avatar">✎</button>
+          </div>
+          <div class="profile-drawer-details">
+            <h3 class="profile-modal-name" id="profile-modal-name">Shiva</h3>
+            <span class="profile-modal-email" id="profile-modal-email">shiva@cinevibe.ai</span>
+            <div class="profile-modal-badge-row">
+              <span class="profile-tier-badge" id="profile-modal-tier">🌟 VIP Cinephile</span>
+              <span class="profile-member-date" id="profile-modal-joined">Active 2026</span>
+            </div>
+          </div>
+        </div>
+        <button class="profile-drawer-close" id="profile-drawer-close" aria-label="Close">✕</button>
+      </div>
+
+      <!-- Quick Inline Edit Form (Hidden by default) -->
+      <div class="profile-edit-panel hidden" id="profile-edit-panel">
+        <label>Update Display Name &amp; Persona:</label>
+        <div class="profile-edit-row">
+          <input type="text" id="profile-edit-name-input" placeholder="Your name..." />
+          <button type="button" class="profile-save-name-btn" id="profile-save-name-btn">Save</button>
+          <button type="button" class="profile-cancel-edit-btn" id="profile-cancel-edit-btn">Cancel</button>
+        </div>
+        <div class="auth-avatar-options" id="profile-avatar-picker-panel" style="margin-top: 10px;">
+          <button type="button" class="avatar-opt-btn" data-avatar="🎬">🎬</button>
+          <button type="button" class="avatar-opt-btn" data-avatar="🍿">🍿</button>
+          <button type="button" class="avatar-opt-btn" data-avatar="🎧">🎧</button>
+          <button type="button" class="avatar-opt-btn" data-avatar="🌟">🌟</button>
+          <button type="button" class="avatar-opt-btn" data-avatar="🕶️">🕶️</button>
+          <button type="button" class="avatar-opt-btn" data-avatar="🎵">🎵</button>
+          <button type="button" class="avatar-opt-btn" data-avatar="🚀">🚀</button>
+          <button type="button" class="avatar-opt-btn" data-avatar="🎭">🎭</button>
+        </div>
+      </div>
+
+      <!-- User Engagement Stats -->
+      <div class="profile-stats-grid">
+        <div class="profile-stat-card" id="stat-card-mylist">
+          <span class="stat-icon">📑</span>
+          <span class="stat-value" id="profile-stat-mylist">0</span>
+          <span class="stat-label">In My List</span>
+        </div>
+        <div class="profile-stat-card" id="stat-card-favorites">
+          <span class="stat-icon">⭐</span>
+          <span class="stat-value" id="profile-stat-favorites">0</span>
+          <span class="stat-label">Favorites</span>
+        </div>
+        <div class="profile-stat-card" id="stat-card-ratings">
+          <span class="stat-icon">🌟</span>
+          <span class="stat-value" id="profile-stat-ratings">0</span>
+          <span class="stat-label">Rated Titles</span>
+        </div>
+      </div>
+
+      <!-- Taste Profile Chips -->
+      <div class="profile-section">
+        <h4 class="profile-section-title">Your Cinema &amp; Music Taste Profile</h4>
+        <div class="profile-tastes-chips" id="profile-tastes-chips">
+          <span class="taste-chip">🎬 Indian Cinema</span>
+          <span class="taste-chip">✨ High Energy</span>
+          <span class="taste-chip">🎵 Soulful Melodies</span>
+          <span class="taste-chip">⚡ Blockbusters</span>
+        </div>
+      </div>
+
+      <!-- Account Management Actions -->
+      <div class="profile-actions-section">
+        <button class="profile-action-btn-main" id="profile-open-login-btn">
+          <span>🔄 Switch Account / Sign In</span>
+        </button>
+        <button class="profile-action-btn-danger" id="profile-clear-data-btn">
+          <span>🗑️ Clear My Saved Collections</span>
+        </button>
+        <button class="profile-action-btn-logout" id="profile-logout-btn">
+          <span>🚪 Log Out</span>
+        </button>
+      </div>
     </div>
   </div>
 

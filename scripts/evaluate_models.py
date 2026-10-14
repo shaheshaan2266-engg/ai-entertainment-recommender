@@ -1,5 +1,5 @@
 """
-Comprehensive Evaluation and Benchmarking Suite for Velora AI Recommender.
+Comprehensive Evaluation and Benchmarking Suite for Cinevibe AI Recommender.
 Measures MAP@10, NDCG@10, Recall@10, and Genre Coherence across ground-truth clusters.
 """
 

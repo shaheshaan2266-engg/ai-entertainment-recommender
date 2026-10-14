@@ -1,5 +1,5 @@
 """
-Comprehensive dataset enrichment script for Velora AI Recommender.
+Comprehensive dataset enrichment script for Cinevibe AI Recommender.
 Enriches movies and songs datasets with:
 - Recent Latest Indian Movies (2024-2026)
 - Bollywood & Hindi cinema

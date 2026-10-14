@@ -1,5 +1,5 @@
 """
-Final Champion Model Optimization & Training for Velora AI.
+Final Champion Model Optimization & Training for Cinevibe AI.
 Combines:
 - Graph Chain Affinity Fusion (Director, Actor, Composer co-occurrence)
 - Calibrated Sparse (0.65) + Dense LSA (0.20) + Graph (0.15) Ensemble
@@ -93,9 +93,9 @@ def expand_query(q: str) -> str:
             expanded.append(w)
     return " ".join(expanded)
 
-class VeloraChampionRecommender:
+class CinevibeChampionRecommender:
     """
-    Production Champion Hybrid AI Recommender for Velora AI.
+    Production Champion Hybrid AI Recommender for Cinevibe AI.
     Blends:
     - Sparse Lexical TF-IDF Matrix (Exact Entity/Keyword Focus)
     - Dense Latent Semantic Analysis (Concept/Thematic Nuances)
@@ -535,7 +535,7 @@ class VeloraChampionRecommender:
 
 def main():
     print("=" * 80)
-    print("VELORA AI: FINAL CHAMPION MODEL TRAINING & GRID CONVERGENCE")
+    print("CINEVIBE AI: FINAL CHAMPION MODEL TRAINING & GRID CONVERGENCE")
     print("=" * 80)
 
     df_movies = load_bollywood_movies()
@@ -554,7 +554,7 @@ def main():
     for i, c in enumerate(candidates, 1):
         print(f"\n--- Training Candidate {i}/3 (TF-IDF={c['w_tfidf']}, LSA={c['w_lsa']}, Graph={c['w_graph']}, SVD={c['components']}) ---")
         t0 = time.time()
-        champ = VeloraChampionRecommender(
+        champ = CinevibeChampionRecommender(
             df_movies=df_movies,
             df_songs=df_songs,
             svd_components=c["components"],

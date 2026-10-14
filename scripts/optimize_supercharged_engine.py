@@ -1,5 +1,5 @@
 """
-Supercharged AI Training & Optimization Engine for Velora AI.
+Supercharged AI Training & Optimization Engine for Cinevibe AI.
 Implements:
 1. Fuzzy & Normalized Entity Resolution (handles dots, spaces, aliases: SS Rajamouli == S.S. Rajamouli)
 2. Vectorized NumPy Scoring (eliminates DataFrame row iteration, sub-15ms latency)
@@ -580,7 +580,7 @@ class SuperchargedRecommenderEngine:
 
 def main():
     print("=" * 80)
-    print("SUPERCHARGED VELORA AI TRAINING & MULTI-EPOCH CONVERGENCE")
+    print("SUPERCHARGED CINEVIBE AI TRAINING & MULTI-EPOCH CONVERGENCE")
     print("=" * 80)
     
     df_movies = load_bollywood_movies()

@@ -1,5 +1,5 @@
 """
-Intensive Multi-Pass Training and Benchmarking Pipeline for Velora AI Recommender.
+Intensive Multi-Pass Training and Benchmarking Pipeline for Cinevibe AI Recommender.
 Trains multi-modal representations, precomputes TF-IDF matrices, builds graph indices,
 and rigorously validates multi-genre combinations and year filtering.
 """
@@ -19,7 +19,7 @@ from ai_entertainment_recommender.recommender import UnifiedEntertainmentRecomme
 
 def main():
     print("=" * 75)
-    print("VELORA AI: INTENSIVE MULTI-PHASE MODEL TRAINING & BENCHMARKING")
+    print("CINEVIBE AI: INTENSIVE MULTI-PHASE MODEL TRAINING & BENCHMARKING")
     print("=" * 75)
     overall_start = time.time()
 

@@ -1,5 +1,5 @@
 /**
- * Velora AI — Cyber-Cinema Experience Application Logic
+ * Cinevibe AI — Cyber-Cinema Experience Application Logic
  * Implements sidebar tab switching, light highlight pop-up animations,
  * real-time mode filtering, Discover Hub, My List / Favorites storage,
  * and Knowledge Graph relational chaining.
@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getUserRatings() {
     try {
-      return JSON.parse(localStorage.getItem("velora_user_ratings") || localStorage.getItem("cinevibe_user_ratings") || "{}");
+      return JSON.parse(localStorage.getItem("cinevibe_user_ratings") || localStorage.getItem("velora_user_ratings") || "{}");
     } catch (e) {
       return {};
     }
@@ -246,6 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const ratings = getUserRatings();
     const normTitle = title.trim().toLowerCase();
     ratings[normTitle] = tierKey;
+    localStorage.setItem("cinevibe_user_ratings", JSON.stringify(ratings));
     localStorage.setItem("velora_user_ratings", JSON.stringify(ratings));
 
     updateCardsRatingUI(title);
@@ -404,8 +405,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let selectedGenre = "All";
 
   // Local Storage Data
-  let myList = JSON.parse(localStorage.getItem("velora_my_list") || localStorage.getItem("cinevibe_my_list") || "[]");
-  let myFavorites = JSON.parse(localStorage.getItem("velora_favorites") || localStorage.getItem("cinevibe_favorites") || "[]");
+  let myList = JSON.parse(localStorage.getItem("cinevibe_my_list") || localStorage.getItem("velora_my_list") || "[]");
+  let myFavorites = JSON.parse(localStorage.getItem("cinevibe_favorites") || localStorage.getItem("velora_favorites") || "[]");
 
   // Multi-Genre & Year Filter State
   const selectedMultiGenres = new Set();
@@ -1110,19 +1111,171 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const movies = data.movies || [];
     const songs = data.songs || [];
-    const allItems = [...movies.map(m => ({ ...m, media_type: 'movie' })), ...songs.map(s => ({ ...s, media_type: 'song' }))];
+    const exactMatch = data.exact_match || (movies.length > 0 && movies[0].is_searched_title ? movies[0] : null) || (songs.length > 0 && songs[0].is_searched_title ? songs[0] : null);
 
-    searchResultsGrid.innerHTML = "";
+    // 1. Render Featured Exact Match Spotlight (Spotlight for the searched title)
+    const spotlightCard = document.getElementById("search-spotlight-card");
+    if (spotlightCard) {
+      if (exactMatch) {
+        const isMovie = (exactMatch.media_type || (exactMatch.actors ? "movie" : "song")).toLowerCase() === "movie";
+        const title = exactMatch.title || activeSeedTitle;
+        const year = exactMatch.release_year || "";
+        const genres = exactMatch.genres || exactMatch.mood || "Featured Title";
+        const directorOrSinger = isMovie ? (exactMatch.director ? `Directed by ${exactMatch.director}` : "") : (exactMatch.singer ? `Vocals by ${exactMatch.singer}` : "");
+        const stars = isMovie && exactMatch.actors ? `Starring ${exactMatch.actors}` : "";
+        const overview = exactMatch.overview || exactMatch.lyrics_snippet || `Original ${genres} ${isMovie ? 'feature film' : 'track'} released in ${year}.`;
+        const posterUrl = exactMatch.poster_url || exactMatch.thumbnail_url || (isMovie ? "/static/images/poster_znmd.jpg" : "/static/images/poster_rockstar.jpg");
 
-    if (!allItems.length) {
-      searchResultsGrid.innerHTML = `<div style="grid-column: 1/-1; padding: 24px; text-align: center; color: #94a3b8;">No matching entertainment found for "${escapeHtml(activeSeedTitle)}". Try another search!</div>`;
-      return;
+        spotlightCard.innerHTML = `
+          <div class="spotlight-poster-wrap">
+            <img src="${posterUrl}" alt="${escapeHtml(title)}" class="spotlight-poster-img" onerror="this.src='/static/images/poster_znmd.jpg'" />
+          </div>
+          <div class="spotlight-body">
+            <div class="spotlight-badge-row">
+              <span class="spotlight-badge-target">🎯 TARGET MATCH</span>
+              <span class="spotlight-badge-meta">${isMovie ? '🎬 Movie' : '🎵 Song'}</span>
+              ${year ? `<span class="spotlight-badge-meta">${year}</span>` : ''}
+              <span class="spotlight-badge-meta">${escapeHtml(genres)}</span>
+            </div>
+            <h2 class="spotlight-title">${escapeHtml(title)}</h2>
+            <div class="spotlight-credits">
+              ${directorOrSinger ? `<strong>${escapeHtml(directorOrSinger)}</strong>` : ''}
+              ${stars ? ` &bull; <span>${escapeHtml(stars)}</span>` : ''}
+            </div>
+            <p class="spotlight-overview">${escapeHtml(overview)}</p>
+            <div class="spotlight-actions-row">
+              <button type="button" class="spotlight-btn-watch" id="spotlight-watch-btn">
+                <span>🎬 Watch Options</span>
+              </button>
+              <button type="button" class="spotlight-btn-chain" id="spotlight-chain-btn">
+                <span>🕸️ Relational Chain</span>
+              </button>
+              <button type="button" class="spotlight-btn-save" id="spotlight-save-btn">
+                <span>📑 Save to List</span>
+              </button>
+            </div>
+          </div>
+        `;
+        spotlightCard.classList.remove("hidden");
+
+        // Event listeners for spotlight card
+        const spWatchBtn = spotlightCard.querySelector("#spotlight-watch-btn");
+        if (spWatchBtn) {
+          spWatchBtn.addEventListener("click", () => {
+            openWatchModal(title, isMovie ? "movie" : "song");
+          });
+        }
+        const spChainBtn = spotlightCard.querySelector("#spotlight-chain-btn");
+        if (spChainBtn) {
+          spChainBtn.addEventListener("click", () => {
+            openChainModal(isMovie ? "movie" : "song", title);
+          });
+        }
+        const spSaveBtn = spotlightCard.querySelector("#spotlight-save-btn");
+        if (spSaveBtn) {
+          spSaveBtn.addEventListener("click", () => {
+            toggleSaveItem(title, isMovie ? "movie" : "song", genres, spSaveBtn);
+          });
+        }
+      } else {
+        spotlightCard.classList.add("hidden");
+      }
     }
 
-    allItems.forEach(item => {
-      const card = createMediaCard(item);
-      searchResultsGrid.appendChild(card);
-    });
+    // 2. Render Similar Movies Column
+    const moviesGrid = document.getElementById("search-movies-grid");
+    const moviesCol = document.getElementById("search-movies-column");
+    const badgeMoviesCount = document.getElementById("badge-movies-count");
+    const countMovies = document.getElementById("count-movies");
+
+    if (moviesGrid && moviesCol) {
+      moviesGrid.innerHTML = "";
+      if (movies.length > 0) {
+        movies.forEach(m => {
+          const card = createMediaCard({ ...m, media_type: 'movie' });
+          moviesGrid.appendChild(card);
+        });
+        moviesCol.classList.remove("hidden");
+        if (badgeMoviesCount) badgeMoviesCount.textContent = movies.length;
+        if (countMovies) countMovies.textContent = movies.length;
+      } else {
+        moviesCol.classList.add("hidden");
+        if (countMovies) countMovies.textContent = "0";
+      }
+    }
+
+    // 3. Render Related Songs Column
+    const songsGrid = document.getElementById("search-songs-grid");
+    const songsCol = document.getElementById("search-songs-column");
+    const badgeSongsCount = document.getElementById("badge-songs-count");
+    const countSongs = document.getElementById("count-songs");
+
+    if (songsGrid && songsCol) {
+      songsGrid.innerHTML = "";
+      if (songs.length > 0) {
+        songs.forEach(s => {
+          const card = createMediaCard({ ...s, media_type: 'song' });
+          songsGrid.appendChild(card);
+        });
+        songsCol.classList.remove("hidden");
+        if (badgeSongsCount) badgeSongsCount.textContent = songs.length;
+        if (countSongs) countSongs.textContent = songs.length;
+      } else {
+        songsCol.classList.add("hidden");
+        if (countSongs) countSongs.textContent = "0";
+      }
+    }
+
+    // 4. Update Subnav counts
+    const countAll = document.getElementById("count-all");
+    const totalCount = movies.length + songs.length;
+    if (countAll) countAll.textContent = totalCount;
+
+    // Subnav Tab Filtering
+    const tabAll = document.getElementById("tab-results-all");
+    const tabMovies = document.getElementById("tab-results-movies");
+    const tabSongs = document.getElementById("tab-results-songs");
+
+    function setResultsActiveTab(activeTab) {
+      [tabAll, tabMovies, tabSongs].forEach(t => t && t.classList.remove("active"));
+      if (activeTab) activeTab.classList.add("active");
+    }
+
+    if (tabAll) {
+      tabAll.onclick = () => {
+        setResultsActiveTab(tabAll);
+        if (moviesCol && movies.length) moviesCol.classList.remove("hidden");
+        if (songsCol && songs.length) songsCol.classList.remove("hidden");
+      };
+    }
+    if (tabMovies) {
+      tabMovies.onclick = () => {
+        setResultsActiveTab(tabMovies);
+        if (moviesCol && movies.length) moviesCol.classList.remove("hidden");
+        if (songsCol) songsCol.classList.add("hidden");
+      };
+    }
+    if (tabSongs) {
+      tabSongs.onclick = () => {
+        setResultsActiveTab(tabSongs);
+        if (moviesCol) moviesCol.classList.add("hidden");
+        if (songsCol && songs.length) songsCol.classList.remove("hidden");
+      };
+    }
+
+    // Reset to "All" tab by default
+    if (tabAll) setResultsActiveTab(tabAll);
+
+    // Empty state fallback
+    if (totalCount === 0) {
+      searchResultsGrid.classList.remove("hidden");
+      searchResultsGrid.innerHTML = `<div style="grid-column: 1/-1; padding: 36px; text-align: center; color: #94a3b8; background: rgba(255,255,255,0.02); border-radius: 16px; border: 1px dashed rgba(255,255,255,0.08);">
+        <p style="font-size: 16px; color: #e2e8f0; margin-bottom: 6px;">No exact matches found for "${escapeHtml(activeSeedTitle)}"</p>
+        <p style="font-size: 12px; color: #64748b;">Try searching another Bollywood title, singer, director, or use the multi-genre and year filters!</p>
+      </div>`;
+    } else {
+      searchResultsGrid.classList.add("hidden");
+    }
   }
 
   closeResultsBtn.addEventListener("click", () => {
@@ -1191,7 +1344,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function toggleSaveItem(title, type, sub, btnEl) {
     const targetArray = (currentDrawerType === "favorites") ? myFavorites : myList;
-    const storageKey = (currentDrawerType === "favorites") ? "velora_favorites" : "velora_my_list";
+    const storageKey = (currentDrawerType === "favorites") ? "cinevibe_favorites" : "cinevibe_my_list";
+    const legacyKey = (currentDrawerType === "favorites") ? "velora_favorites" : "velora_my_list";
 
     const idx = targetArray.findIndex(item => item.title === title);
     if (idx >= 0) {
@@ -1213,6 +1367,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     localStorage.setItem(storageKey, JSON.stringify(targetArray));
+    localStorage.setItem(legacyKey, JSON.stringify(targetArray));
     updateBadges();
 
     // If drawer currently open, refresh its list
@@ -1908,7 +2063,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (watchActShare) {
     watchActShare.addEventListener("click", () => {
-      const shareText = `🎬 Watch "${currentWatchTitle}" on verified streaming platforms! Check Velora AI: http://127.0.0.1:5000`;
+      const shareText = `🎬 Watch "${currentWatchTitle}" on verified streaming platforms! Check Cinevibe AI: http://127.0.0.1:5000`;
       if (navigator.clipboard) {
         navigator.clipboard.writeText(shareText).then(() => {
           showAudioToast("Watch info copied to clipboard!", currentWatchTitle);
@@ -1942,8 +2097,384 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!listDrawerOverlay.classList.contains("hidden")) {
         listDrawerOverlay.classList.add("hidden");
       }
+      if (profileDrawerOverlay && !profileDrawerOverlay.classList.contains("hidden")) {
+        profileDrawerOverlay.classList.add("hidden");
+      }
+      if (authModalOverlay && !authModalOverlay.classList.contains("hidden")) {
+        authModalOverlay.classList.add("hidden");
+      }
     }
   });
+
+  // -------------------------------------------------------------
+  // 10. USER PROFILE & AUTHENTICATION SYSTEM
+  // -------------------------------------------------------------
+  const navProfile = document.getElementById("nav-profile");
+  const sidebarProfileTab = document.getElementById("sidebar-profile-tab");
+  const sidebarProfileSettingsBtn = document.getElementById("sidebar-profile-settings-btn");
+  const profileDrawerOverlay = document.getElementById("profile-drawer-overlay");
+  const profileDrawerClose = document.getElementById("profile-drawer-close");
+  const authModalOverlay = document.getElementById("auth-modal-overlay");
+  const authCloseBtn = document.getElementById("auth-close-btn");
+  const authTabLogin = document.getElementById("auth-tab-login");
+  const authTabSignup = document.getElementById("auth-tab-signup");
+  const authForm = document.getElementById("auth-form");
+  const authNameField = document.getElementById("auth-name-field");
+  const authAvatarField = document.getElementById("auth-avatar-field");
+  const authInputName = document.getElementById("auth-input-name");
+  const authInputEmail = document.getElementById("auth-input-email");
+  const authInputPassword = document.getElementById("auth-input-password");
+  const authTogglePwd = document.getElementById("auth-toggle-pwd");
+  const authSubmitBtn = document.getElementById("auth-submit-btn");
+  const authDemoBtn = document.getElementById("auth-demo-btn");
+  const authErrorMsg = document.getElementById("auth-error-msg");
+  const profileOpenLoginBtn = document.getElementById("profile-open-login-btn");
+  const profileLogoutBtn = document.getElementById("profile-logout-btn");
+  const profileClearDataBtn = document.getElementById("profile-clear-data-btn");
+  const profileAvatarEditBadge = document.getElementById("profile-avatar-edit-badge");
+  const profileEditPanel = document.getElementById("profile-edit-panel");
+  const profileEditNameInput = document.getElementById("profile-edit-name-input");
+  const profileSaveNameBtn = document.getElementById("profile-save-name-btn");
+  const profileCancelEditBtn = document.getElementById("profile-cancel-edit-btn");
+  const statCardMyList = document.getElementById("stat-card-mylist");
+  const statCardFavorites = document.getElementById("stat-card-favorites");
+
+  let authMode = "login";
+  let selectedAvatar = "🎬";
+  let currentUser = null;
+
+  function loadUserSession() {
+    try {
+      const stored = localStorage.getItem("cinevibe_user");
+      if (stored) {
+        currentUser = JSON.parse(stored);
+      }
+    } catch (e) {
+      currentUser = null;
+    }
+
+    if (!currentUser) {
+      currentUser = {
+        name: "Shiva",
+        email: "shiva@cinevibe.ai",
+        avatar: "🎬",
+        role: "VIP Cinephile",
+        joined: "Active 2026",
+        loggedIn: true
+      };
+      saveUserSession();
+    }
+    selectedAvatar = currentUser.avatar || "🎬";
+    updateProfileUI();
+  }
+
+  function saveUserSession() {
+    try {
+      localStorage.setItem("cinevibe_user", JSON.stringify(currentUser));
+    } catch (e) {
+      console.error("Failed to save user session", e);
+    }
+  }
+
+  function updateProfileUI() {
+    if (!currentUser) return;
+
+    // Sidebar left-bottom corner
+    const avatarText = document.getElementById("sidebar-avatar-text");
+    const profileName = document.getElementById("sidebar-profile-name");
+    const profileRole = document.getElementById("sidebar-profile-role");
+    if (avatarText) avatarText.textContent = currentUser.avatar || "🎬";
+    if (profileName) profileName.textContent = currentUser.name || "Guest";
+    if (profileRole) profileRole.textContent = currentUser.loggedIn ? (currentUser.role || "VIP Cinephile") : "Guest Explorer";
+
+    // Drawer elements
+    const drawerAvatar = document.getElementById("profile-modal-avatar");
+    const drawerName = document.getElementById("profile-modal-name");
+    const drawerEmail = document.getElementById("profile-modal-email");
+    const drawerTier = document.getElementById("profile-modal-tier");
+    const drawerJoined = document.getElementById("profile-modal-joined");
+
+    if (drawerAvatar) drawerAvatar.textContent = currentUser.avatar || "🎬";
+    if (drawerName) drawerName.textContent = currentUser.name || "Guest";
+    if (drawerEmail) drawerEmail.textContent = currentUser.email || "guest@cinevibe.ai";
+    if (drawerTier) drawerTier.textContent = currentUser.loggedIn ? (currentUser.role || "🌟 VIP Cinephile") : "Guest Explorer";
+    if (drawerJoined) drawerJoined.textContent = currentUser.joined || "Active 2026";
+
+    // Live engagement stats
+    const statMyList = document.getElementById("profile-stat-mylist");
+    const statFavorites = document.getElementById("profile-stat-favorites");
+    const statRatings = document.getElementById("profile-stat-ratings");
+    if (statMyList) statMyList.textContent = myList.length;
+    if (statFavorites) statFavorites.textContent = myFavorites.length;
+    if (statRatings) statRatings.textContent = Object.keys(getUserRatings()).length;
+
+    // Pre-populate inline name input
+    if (profileEditNameInput) {
+      profileEditNameInput.value = currentUser.name || "Shiva";
+    }
+  }
+
+  function openProfileDrawer() {
+    updateProfileUI();
+    if (profileDrawerOverlay) profileDrawerOverlay.classList.remove("hidden");
+  }
+
+  function closeProfileDrawer() {
+    if (profileDrawerOverlay) profileDrawerOverlay.classList.add("hidden");
+    if (profileEditPanel) profileEditPanel.classList.add("hidden");
+  }
+
+  function setAuthMode(mode) {
+    authMode = mode;
+    if (authErrorMsg) authErrorMsg.classList.add("hidden");
+
+    if (mode === "signup") {
+      if (authTabSignup) authTabSignup.classList.add("active");
+      if (authTabLogin) authTabLogin.classList.remove("active");
+      if (authNameField) authNameField.style.display = "flex";
+      if (authAvatarField) authAvatarField.style.display = "flex";
+      if (authSubmitBtn) authSubmitBtn.querySelector("span").textContent = "Create Cinevibe Account";
+      const title = document.getElementById("auth-title");
+      if (title) title.textContent = "Join Cinevibe AI";
+    } else {
+      if (authTabLogin) authTabLogin.classList.add("active");
+      if (authTabSignup) authTabSignup.classList.remove("active");
+      if (authNameField) authNameField.style.display = "none";
+      if (authAvatarField) authAvatarField.style.display = "none";
+      if (authSubmitBtn) authSubmitBtn.querySelector("span").textContent = "Sign In to Cinevibe";
+      const title = document.getElementById("auth-title");
+      if (title) title.textContent = "Welcome to Cinevibe AI";
+    }
+  }
+
+  function openAuthModal(isSignup = false) {
+    closeProfileDrawer();
+    setAuthMode(isSignup ? "signup" : "login");
+    if (authModalOverlay) authModalOverlay.classList.remove("hidden");
+  }
+
+  function closeAuthModal() {
+    if (authModalOverlay) authModalOverlay.classList.add("hidden");
+    if (authErrorMsg) authErrorMsg.classList.add("hidden");
+  }
+
+  // Navigation Profile click
+  if (navProfile) {
+    navProfile.addEventListener("click", (e) => {
+      e.preventDefault();
+      setActiveNavTab(navProfile);
+      openProfileDrawer();
+    });
+  }
+
+  // Left-bottom corner profile tab click
+  if (sidebarProfileTab) {
+    sidebarProfileTab.addEventListener("click", (e) => {
+      e.stopPropagation();
+      openProfileDrawer();
+    });
+  }
+
+  if (sidebarProfileSettingsBtn) {
+    sidebarProfileSettingsBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      openProfileDrawer();
+    });
+  }
+
+  // Profile Drawer close
+  if (profileDrawerClose) {
+    profileDrawerClose.addEventListener("click", closeProfileDrawer);
+  }
+  if (profileDrawerOverlay) {
+    profileDrawerOverlay.addEventListener("click", (e) => {
+      if (e.target === profileDrawerOverlay) closeProfileDrawer();
+    });
+  }
+
+  // Stat cards jump to My List & Favorites drawers
+  if (statCardMyList) {
+    statCardMyList.addEventListener("click", () => {
+      closeProfileDrawer();
+      openDrawer("list");
+    });
+  }
+  if (statCardFavorites) {
+    statCardFavorites.addEventListener("click", () => {
+      closeProfileDrawer();
+      openDrawer("favorites");
+    });
+  }
+
+  // Inline edit toggle
+  if (profileAvatarEditBadge) {
+    profileAvatarEditBadge.addEventListener("click", () => {
+      if (profileEditPanel) {
+        profileEditPanel.classList.toggle("hidden");
+      }
+    });
+  }
+
+  if (profileSaveNameBtn) {
+    profileSaveNameBtn.addEventListener("click", () => {
+      const newName = (profileEditNameInput.value || "").trim();
+      if (newName) {
+        currentUser.name = newName;
+        currentUser.avatar = selectedAvatar;
+        saveUserSession();
+        updateProfileUI();
+        if (profileEditPanel) profileEditPanel.classList.add("hidden");
+        showAudioToast(`Profile updated to ${newName}!`, "Account Synced");
+      }
+    });
+  }
+
+  if (profileCancelEditBtn) {
+    profileCancelEditBtn.addEventListener("click", () => {
+      if (profileEditPanel) profileEditPanel.classList.add("hidden");
+    });
+  }
+
+  // Profile avatar selector buttons
+  document.querySelectorAll("#profile-avatar-picker-panel .avatar-opt-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#profile-avatar-picker-panel .avatar-opt-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      selectedAvatar = btn.dataset.avatar || "🎬";
+      currentUser.avatar = selectedAvatar;
+      saveUserSession();
+      updateProfileUI();
+      showAudioToast(`Persona avatar set to ${selectedAvatar}`, "Profile Updated");
+    });
+  });
+
+  // Open login from profile drawer
+  if (profileOpenLoginBtn) {
+    profileOpenLoginBtn.addEventListener("click", () => {
+      openAuthModal(false);
+    });
+  }
+
+  // Log Out
+  if (profileLogoutBtn) {
+    profileLogoutBtn.addEventListener("click", () => {
+      currentUser.loggedIn = false;
+      currentUser.name = "Guest";
+      currentUser.role = "Guest Explorer";
+      saveUserSession();
+      updateProfileUI();
+      closeProfileDrawer();
+      showAudioToast("Signed out. Exploring as Guest.", "Logged Out");
+    });
+  }
+
+  // Clear Saved Data
+  if (profileClearDataBtn) {
+    profileClearDataBtn.addEventListener("click", () => {
+      if (confirm("Clear all items from your Saved List and Favorites?")) {
+        myList = [];
+        myFavorites = [];
+        localStorage.setItem("cinevibe_my_list", "[]");
+        localStorage.setItem("velora_my_list", "[]");
+        localStorage.setItem("cinevibe_favorites", "[]");
+        localStorage.setItem("velora_favorites", "[]");
+        updateBadges();
+        updateProfileUI();
+        showAudioToast("Your personal collection has been reset.", "Collection Cleared");
+      }
+    });
+  }
+
+  // Auth Modal events
+  if (authCloseBtn) authCloseBtn.addEventListener("click", closeAuthModal);
+  if (authModalOverlay) {
+    authModalOverlay.addEventListener("click", (e) => {
+      if (e.target === authModalOverlay) closeAuthModal();
+    });
+  }
+
+  if (authTabLogin) authTabLogin.addEventListener("click", () => setAuthMode("login"));
+  if (authTabSignup) authTabSignup.addEventListener("click", () => setAuthMode("signup"));
+
+  // Auth avatar options in signup
+  document.querySelectorAll("#auth-avatar-options .avatar-opt-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#auth-avatar-options .avatar-opt-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      selectedAvatar = btn.dataset.avatar || "🎬";
+    });
+  });
+
+  // Password visibility toggle
+  if (authTogglePwd) {
+    authTogglePwd.addEventListener("click", () => {
+      if (authInputPassword.type === "password") {
+        authInputPassword.type = "text";
+        authTogglePwd.textContent = "🙈";
+      } else {
+        authInputPassword.type = "password";
+        authTogglePwd.textContent = "👁️";
+      }
+    });
+  }
+
+  // Quick Demo Login (Shiva)
+  if (authDemoBtn) {
+    authDemoBtn.addEventListener("click", () => {
+      currentUser = {
+        name: "Shiva",
+        email: "shiva@cinevibe.ai",
+        avatar: "🎬",
+        role: "VIP Cinephile",
+        joined: "Active 2026",
+        loggedIn: true
+      };
+      saveUserSession();
+      updateProfileUI();
+      closeAuthModal();
+      showAudioToast("Welcome back, Shiva! VIP status active.", "Cinevibe AI");
+    });
+  }
+
+  // Auth Form Submit
+  if (authForm) {
+    authForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = (authInputEmail.value || "").trim();
+      const pwd = (authInputPassword.value || "").trim();
+
+      if (!email || !pwd) {
+        if (authErrorMsg) {
+          authErrorMsg.textContent = "Please fill in all required fields.";
+          authErrorMsg.classList.remove("hidden");
+        }
+        return;
+      }
+
+      let name = "Shiva";
+      if (authMode === "signup") {
+        name = (authInputName.value || "").trim() || email.split("@")[0] || "Cinephile";
+      } else {
+        name = email.split("@")[0].replace(/[._-]/g, " ").replace(/\b\w/g, l => l.toUpperCase()) || "Shiva";
+      }
+
+      currentUser = {
+        name: name,
+        email: email,
+        avatar: selectedAvatar || "🎬",
+        role: "VIP Cinephile",
+        joined: "Active 2026",
+        loggedIn: true
+      };
+      saveUserSession();
+      updateProfileUI();
+      closeAuthModal();
+      showAudioToast(`Welcome to Cinevibe, ${name}!`, "Account Ready");
+    });
+  }
+
+  // Load session on startup
+  loadUserSession();
 
   // -------------------------------------------------------------
   // 10. ULTRA-FLUID 3D MAGNETIC CARD TILT PHYSICS & DYNAMICS

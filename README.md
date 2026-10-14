@@ -1,4 +1,4 @@
-# Velora AI — Cyber-Cinema & Music Intelligence Engine
+# Cinevibe AI — Cyber-Cinema & Music Intelligence Engine
 
 > **Intelligent Multi-Modal Entertainment Discovery Platform**  
 > AI-powered recommender connecting Indian cinema, songs, artists, and storylines spanning 1950s classics to 2026 latest releases.

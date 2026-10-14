@@ -1,5 +1,5 @@
 """
-Unified Multi-Modal Entertainment Recommender for Indian Cinema and Music (Velora AI).
+Unified Multi-Modal Entertainment Recommender for Indian Cinema and Music (Cinevibe AI).
 Combines:
 - High-precision TF-IDF feature fusion (0.60–0.65)
 - Dense Latent Semantic Analysis TruncatedSVD embeddings (0.20–0.25)
@@ -652,9 +652,40 @@ class UnifiedEntertainmentRecommender:
         elif not effective_query:
             effective_query = "bollywood blockbuster hit movies songs"
 
-        # Entity Resolution
+        # Entity Resolution (Exact, Normalized, Stemmed, and Substring)
         matched_movie_idx = self.movie_title_map.get(q_norm)
         matched_song_idx = self.song_title_map.get(q_norm)
+
+        if matched_movie_idx is None:
+            matched_movie_idx = self.movie_title_map.get(query_clean.lower().strip())
+        if matched_song_idx is None:
+            matched_song_idx = self.song_title_map.get(query_clean.lower().strip())
+
+        # If user searched e.g. "pk movie" or "kesariya song"
+        if matched_movie_idx is None or matched_song_idx is None:
+            clean_without_type = re.sub(r'\b(movie|film|cinema|song|track|soundtrack|music)\b', '', query_clean, flags=re.I).strip()
+            norm_without_type = clean_entity(clean_without_type)
+            if norm_without_type:
+                if matched_movie_idx is None:
+                    matched_movie_idx = self.movie_title_map.get(norm_without_type) or self.movie_title_map.get(clean_without_type.lower())
+                if matched_song_idx is None:
+                    matched_song_idx = self.song_title_map.get(norm_without_type) or self.song_title_map.get(clean_without_type.lower())
+
+        # Substring / Prefix matching fallback if still None
+        if matched_movie_idx is None and len(q_norm) >= 2:
+            for idx, t in enumerate(self.df_movies['title']):
+                clean_t = clean_entity(t)
+                if clean_t == q_norm or clean_t.startswith(q_norm) or f" {query_clean.lower()} " in f" {str(t).lower()} ":
+                    matched_movie_idx = idx
+                    break
+
+        if matched_song_idx is None and len(q_norm) >= 2:
+            for idx, t in enumerate(self.df_songs['title']):
+                clean_t = clean_entity(t)
+                if clean_t == q_norm or clean_t.startswith(q_norm) or f" {query_clean.lower()} " in f" {str(t).lower()} ":
+                    matched_song_idx = idx
+                    break
+
         matched_movie = self.df_movies.iloc[matched_movie_idx].to_dict() if matched_movie_idx is not None else None
         matched_song = self.df_songs.iloc[matched_song_idx].to_dict() if matched_song_idx is not None else None
 
@@ -802,6 +833,26 @@ class UnifiedEntertainmentRecommender:
                     matched_genres=m_genres
                 )
                 movie_res.append(item)
+
+            # Prepend searched movie at position 1 if found
+            if matched_movie:
+                searched_movie_item = matched_movie.copy()
+                searched_movie_item['similarity_score'] = 1.0
+                searched_movie_item['is_searched_title'] = True
+                searched_movie_item['is_exact_match'] = True
+                searched_movie_item['reason'] = f"🎯 Searched Title · Original {matched_movie.get('release_year', '')} Blockbuster"
+                recommendations["exact_match"] = {**searched_movie_item, "media_type": "movie"}
+                movie_res = [searched_movie_item] + movie_res
+            elif matched_song and matched_song.get('movie_title'):
+                parent_m_title = str(matched_song.get('movie_title')).strip()
+                parent_idx = self.movie_title_map.get(clean_entity(parent_m_title)) or self.movie_title_map.get(parent_m_title.lower())
+                if parent_idx is not None:
+                    parent_m = self.df_movies.iloc[parent_idx].to_dict()
+                    parent_m['similarity_score'] = 1.0
+                    parent_m['is_soundtrack_parent'] = True
+                    parent_m['reason'] = f"🎬 Movie for Searched Track '{matched_song.get('title')}'"
+                    movie_res = [parent_m] + [m for m in movie_res if m.get('title') != parent_m.get('title')]
+
             recommendations["movies"] = movie_res
 
         # ------------------- 2. SONG RECOMMENDATIONS (VECTORIZED) -------------------
@@ -907,6 +958,29 @@ class UnifiedEntertainmentRecommender:
                     matched_genres=s_genres
                 )
                 song_res.append(item)
+
+            # Prepend searched song at position 1 if found
+            if matched_song:
+                searched_song_item = matched_song.copy()
+                searched_song_item['similarity_score'] = 1.0
+                searched_song_item['is_searched_title'] = True
+                searched_song_item['is_exact_match'] = True
+                searched_song_item['reason'] = f"🎯 Searched Track · Vocals by {matched_song.get('singer', '')}"
+                recommendations["exact_match"] = {**searched_song_item, "media_type": "song"}
+                song_res = [searched_song_item] + song_res
+            elif matched_movie:
+                movie_t = str(matched_movie.get('title') or '').lower().strip()
+                s_indices = self.movie_to_song_indices.get(movie_t, []) or self.movie_to_song_indices.get(clean_entity(movie_t), [])
+                if s_indices:
+                    ost_songs = []
+                    for s_idx in s_indices:
+                        s_row = self.df_songs.iloc[s_idx].to_dict()
+                        s_row['similarity_score'] = 1.0
+                        s_row['is_soundtrack_track'] = True
+                        s_row['reason'] = f"🎵 Official Soundtrack from {matched_movie.get('title')}"
+                        ost_songs.append(s_row)
+                    song_res = ost_songs + [s for s in song_res if s.get('title') not in [o['title'] for o in ost_songs]]
+
             recommendations["songs"] = song_res
 
         return recommendations
