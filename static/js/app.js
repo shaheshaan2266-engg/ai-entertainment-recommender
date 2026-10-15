@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const filterPills = document.querySelectorAll(".filter-pill");
 
   // Main Sections
+  const mainContent = document.getElementById("main-content");
   const heroBanner = document.getElementById("hero-banner");
   const searchSection = document.querySelector(".search-section");
   const searchResultsSection = document.getElementById("search-results-section");
@@ -417,7 +418,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initFilterIntelligence();
 
   // -------------------------------------------------------------
-  // 1. SIDEBAR NAVIGATION TABS FUNCTIONALITY WITH POP-UP ANIMATION
+  // 1. SIDEBAR NAVIGATION TABS FUNCTIONALITY (FULL IN-APP PAGES)
   // -------------------------------------------------------------
   function setActiveNavTab(activeEl) {
     navItems.forEach(item => item.classList.remove("active"));
@@ -426,48 +427,123 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Home Tab
+  function navigateTo(route, updateHash = true) {
+    const r = (route || "home").replace(/^#/, "").toLowerCase();
+
+    // Reset all nav active states
+    navItems.forEach(item => item.classList.remove("active"));
+
+    if (r === "discover") {
+      if (navDiscover) navDiscover.classList.add("active");
+      if (mainContent) mainContent.setAttribute("data-page", "discover");
+      chainModalOverlay.classList.add("hidden");
+      listDrawerOverlay.classList.add("hidden");
+      if (profileDrawerOverlay) profileDrawerOverlay.classList.add("hidden");
+      sectionDiscover.classList.remove("hidden");
+      searchResultsSection.classList.add("hidden");
+      if (!discoverResultsGrid.children.length) {
+        loadDiscoverContent();
+      }
+      if (updateHash && window.location.hash !== "#discover") {
+        history.pushState(null, "", "#discover");
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (r === "graph") {
+      if (navGraph) navGraph.classList.add("active");
+      if (mainContent) mainContent.setAttribute("data-page", "graph");
+      listDrawerOverlay.classList.add("hidden");
+      if (profileDrawerOverlay) profileDrawerOverlay.classList.add("hidden");
+      sectionDiscover.classList.add("hidden");
+      searchResultsSection.classList.add("hidden");
+      openChainModal("actor", activeSeedTitle || "Shah Rukh Khan");
+      if (updateHash && window.location.hash !== "#graph") {
+        history.pushState(null, "", "#graph");
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (r === "mylist" || r === "list") {
+      if (navMyList) navMyList.classList.add("active");
+      if (mainContent) mainContent.setAttribute("data-page", "list");
+      chainModalOverlay.classList.add("hidden");
+      if (profileDrawerOverlay) profileDrawerOverlay.classList.add("hidden");
+      sectionDiscover.classList.add("hidden");
+      searchResultsSection.classList.add("hidden");
+      openDrawer("list");
+      if (updateHash && window.location.hash !== "#mylist") {
+        history.pushState(null, "", "#mylist");
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (r === "favorites") {
+      if (navFavorites) navFavorites.classList.add("active");
+      if (mainContent) mainContent.setAttribute("data-page", "favorites");
+      chainModalOverlay.classList.add("hidden");
+      if (profileDrawerOverlay) profileDrawerOverlay.classList.add("hidden");
+      sectionDiscover.classList.add("hidden");
+      searchResultsSection.classList.add("hidden");
+      openDrawer("favorites");
+      if (updateHash && window.location.hash !== "#favorites") {
+        history.pushState(null, "", "#favorites");
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (r === "profile") {
+      if (navProfile) navProfile.classList.add("active");
+      if (mainContent) mainContent.setAttribute("data-page", "profile");
+      chainModalOverlay.classList.add("hidden");
+      listDrawerOverlay.classList.add("hidden");
+      sectionDiscover.classList.add("hidden");
+      searchResultsSection.classList.add("hidden");
+      openProfileDrawer();
+      if (updateHash && window.location.hash !== "#profile") {
+        history.pushState(null, "", "#profile");
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      // Home
+      if (navHome) navHome.classList.add("active");
+      if (mainContent) mainContent.removeAttribute("data-page");
+      chainModalOverlay.classList.add("hidden");
+      listDrawerOverlay.classList.add("hidden");
+      if (profileDrawerOverlay) profileDrawerOverlay.classList.add("hidden");
+      sectionDiscover.classList.add("hidden");
+      sectionTrending.classList.remove("hidden");
+      sectionEntity.classList.remove("hidden");
+      sectionDual.classList.remove("hidden");
+      if (updateHash && window.location.hash !== "#home" && window.location.hash !== "") {
+        history.pushState(null, "", "#home");
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
+  // Navigation tab click listeners
   navHome.addEventListener("click", (e) => {
     e.preventDefault();
-    setActiveNavTab(navHome);
-    sectionDiscover.classList.add("hidden");
-    searchResultsSection.classList.add("hidden");
-    sectionTrending.classList.remove("hidden");
-    sectionEntity.classList.remove("hidden");
-    sectionDual.classList.remove("hidden");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    navigateTo("home");
   });
 
-  // Discover Tab
   navDiscover.addEventListener("click", (e) => {
     e.preventDefault();
-    setActiveNavTab(navDiscover);
-    sectionDiscover.classList.remove("hidden");
-    sectionDiscover.scrollIntoView({ behavior: "smooth", block: "start" });
-    if (!discoverResultsGrid.children.length) {
-      loadDiscoverContent();
-    }
+    navigateTo("discover");
   });
 
-  // Graph Explorer Tab
   navGraph.addEventListener("click", (e) => {
     e.preventDefault();
-    setActiveNavTab(navGraph);
-    openChainModal("actor", activeSeedTitle || "Shah Rukh Khan");
+    navigateTo("graph");
   });
 
-  // My List Tab
   navMyList.addEventListener("click", (e) => {
     e.preventDefault();
-    setActiveNavTab(navMyList);
-    openDrawer("list");
+    navigateTo("mylist");
   });
 
-  // Favorites Tab
   navFavorites.addEventListener("click", (e) => {
     e.preventDefault();
-    setActiveNavTab(navFavorites);
-    openDrawer("favorites");
+    navigateTo("favorites");
+  });
+
+  // Handle browser Back / Forward navigation
+  window.addEventListener("popstate", () => {
+    const hash = window.location.hash || "#home";
+    navigateTo(hash, false);
   });
 
   // -------------------------------------------------------------
@@ -1433,6 +1509,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       row.querySelector(".drawer-item-play-btn").addEventListener("click", () => {
         listDrawerOverlay.classList.add("hidden");
+        navigateTo("home", false);
         searchInput.value = item.title;
         searchClearBtn.classList.remove("hidden");
         executeSearch(item.title);
@@ -1448,6 +1525,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   drawerCloseBtn.addEventListener("click", () => {
     listDrawerOverlay.classList.add("hidden");
+    navigateTo("home");
   });
 
   listDrawerOverlay.addEventListener("click", (e) => {
@@ -1739,6 +1817,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   modalCloseBtn.addEventListener("click", () => {
     chainModalOverlay.classList.add("hidden");
+    navigateTo("home");
   });
 
   chainModalOverlay.addEventListener("click", (e) => {
@@ -2262,29 +2341,34 @@ document.addEventListener("DOMContentLoaded", () => {
   if (navProfile) {
     navProfile.addEventListener("click", (e) => {
       e.preventDefault();
-      setActiveNavTab(navProfile);
-      openProfileDrawer();
+      navigateTo("profile");
     });
   }
 
   // Left-bottom corner profile tab click
   if (sidebarProfileTab) {
     sidebarProfileTab.addEventListener("click", (e) => {
+      e.preventDefault();
       e.stopPropagation();
-      openProfileDrawer();
+      navigateTo("profile");
     });
   }
 
   if (sidebarProfileSettingsBtn) {
     sidebarProfileSettingsBtn.addEventListener("click", (e) => {
+      e.preventDefault();
       e.stopPropagation();
-      openProfileDrawer();
+      navigateTo("profile");
+      if (profileEditPanel) profileEditPanel.classList.remove("hidden");
     });
   }
 
   // Profile Drawer close
   if (profileDrawerClose) {
-    profileDrawerClose.addEventListener("click", closeProfileDrawer);
+    profileDrawerClose.addEventListener("click", () => {
+      closeProfileDrawer();
+      navigateTo("home");
+    });
   }
   if (profileDrawerOverlay) {
     profileDrawerOverlay.addEventListener("click", (e) => {
@@ -2475,6 +2559,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Load session on startup
   loadUserSession();
+
+  // Handle initial route on startup if hash is present
+  const initialHash = window.location.hash;
+  if (initialHash && ["#discover", "#graph", "#mylist", "#list", "#favorites", "#profile"].includes(initialHash.toLowerCase())) {
+    navigateTo(initialHash, false);
+  }
 
   // -------------------------------------------------------------
   // 10. ULTRA-FLUID 3D MAGNETIC CARD TILT PHYSICS & DYNAMICS

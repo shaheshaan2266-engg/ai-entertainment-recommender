@@ -4046,3 +4046,25 @@ html, body {
     justify-content: center;
   }
 }
+
+/* In-app sidebar pages. Existing dialog contents/styles are retained. */
+.main-content[data-page="graph"] > :not(#chain-modal-overlay),
+.main-content[data-page="list"] > :not(#list-drawer-overlay),
+.main-content[data-page="favorites"] > :not(#list-drawer-overlay),
+.main-content[data-page="profile"] > :not(#profile-drawer-overlay),
+.main-content[data-page="discover"] > :not(#section-discover) { display: none !important; }
+.main-content[data-page="graph"] #chain-modal-overlay,
+.main-content[data-page="list"] #list-drawer-overlay,
+.main-content[data-page="favorites"] #list-drawer-overlay,
+.main-content[data-page="profile"] #profile-drawer-overlay {
+  position: relative; inset: auto; display: block; background: transparent;
+  backdrop-filter: none; z-index: auto; padding: 0; animation: none;
+}
+.main-content[data-page="graph"] .chain-modal-dialog,
+.main-content[data-page="list"] .list-drawer-dialog,
+.main-content[data-page="favorites"] .list-drawer-dialog,
+.main-content[data-page="profile"] .profile-drawer-box {
+  width: 100%; max-width: none; max-height: none; min-height: 65vh;
+  animation: none; margin: 0; overflow: visible;
+}
+.main-content[data-page="discover"] #section-discover { display: block !important; }

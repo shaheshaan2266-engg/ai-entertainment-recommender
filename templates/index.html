@@ -781,6 +781,165 @@
         </div>
       </section>
 
+
+
+  <!-- ======================================================== -->
+  <!-- KNOWLEDGE GRAPH CHAINING MODAL / DRAWER                  -->
+  <!-- ======================================================== -->
+  <div class="chain-modal-overlay hidden" id="chain-modal-overlay">
+    <div class="chain-modal-dialog" id="chain-modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span class="modal-badge" id="modal-badge">Actor</span>
+          <h3 class="modal-name" id="modal-name">Entity Name</h3>
+        </div>
+        <button class="modal-close-btn" id="modal-close-btn">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="graph-quick-selector">
+          <span class="quick-lbl">Quick Explore Entity:</span>
+          <div class="quick-entity-chips">
+            <button class="entity-pick-btn" data-type="actor" data-name="Shah Rukh Khan">Shah Rukh Khan</button>
+            <button class="entity-pick-btn" data-type="composer" data-name="A.R. Rahman">A.R. Rahman</button>
+            <button class="entity-pick-btn" data-type="singer" data-name="Arijit Singh">Arijit Singh</button>
+            <button class="entity-pick-btn" data-type="director" data-name="S.S. Rajamouli">S.S. Rajamouli</button>
+            <button class="entity-pick-btn" data-type="actor" data-name="Alia Bhatt">Alia Bhatt</button>
+            <button class="entity-pick-btn" data-type="composer" data-name="Pritam">Pritam</button>
+          </div>
+        </div>
+
+        <div class="modal-stats" id="modal-stats"></div>
+
+        <div class="modal-section" id="section-modal-collabs">
+          <h4 class="modal-section-title">🤝 Frequent Collaborations &amp; Creative Partners</h4>
+          <div class="modal-chips-row" id="modal-collabs-list"></div>
+        </div>
+
+        <div class="modal-section" id="section-modal-movies">
+          <h4 class="modal-section-title">🎬 Linked Cinema &amp; Filmography</h4>
+          <div class="modal-cards-scroll" id="modal-movies-list"></div>
+        </div>
+
+        <div class="modal-section" id="section-modal-songs">
+          <h4 class="modal-section-title">🎵 Linked Songs &amp; Melodies</h4>
+          <div class="modal-cards-scroll" id="modal-songs-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ======================================================== -->
+  <!-- MY LIST / FAVORITES DRAWER MODAL                         -->
+  <!-- ======================================================== -->
+  <div class="list-drawer-overlay hidden" id="list-drawer-overlay">
+    <div class="list-drawer-dialog" id="list-drawer-dialog">
+      <div class="drawer-header">
+        <div class="drawer-title-group">
+          <span class="drawer-badge" id="drawer-badge">Saved Collection</span>
+          <h3 class="drawer-title" id="drawer-title">My List</h3>
+        </div>
+        <div class="drawer-header-actions">
+          <button class="drawer-clear-btn" id="drawer-clear-btn">Clear All</button>
+          <button class="drawer-close-btn" id="drawer-close-btn">✕</button>
+        </div>
+      </div>
+      <div class="drawer-body">
+        <div class="drawer-items-list" id="drawer-items-list"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ======================================================== -->
+  <!-- USER PROFILE & ACCOUNT DRAWER MODAL                      -->
+  <!-- ======================================================== -->
+  <div class="profile-drawer-overlay hidden" id="profile-drawer-overlay">
+    <div class="profile-drawer-box">
+      <div class="profile-drawer-header">
+        <div class="profile-header-main">
+          <div class="profile-drawer-avatar-wrap">
+            <div class="profile-drawer-avatar" id="profile-modal-avatar">🎬</div>
+            <button class="profile-avatar-edit-badge" id="profile-avatar-edit-badge" title="Change Avatar">✎</button>
+          </div>
+          <div class="profile-drawer-details">
+            <h3 class="profile-modal-name" id="profile-modal-name">Shiva</h3>
+            <span class="profile-modal-email" id="profile-modal-email">shiva@cinevibe.ai</span>
+            <div class="profile-modal-badge-row">
+              <span class="profile-tier-badge" id="profile-modal-tier">🌟 VIP Cinephile</span>
+              <span class="profile-member-date" id="profile-modal-joined">Active 2026</span>
+            </div>
+          </div>
+        </div>
+        <button class="profile-drawer-close" id="profile-drawer-close" aria-label="Close">✕</button>
+      </div>
+
+      <!-- Quick Inline Edit Form (Hidden by default) -->
+      <div class="profile-edit-panel hidden" id="profile-edit-panel">
+        <label>Update Display Name &amp; Persona:</label>
+        <div class="profile-edit-row">
+          <input type="text" id="profile-edit-name-input" placeholder="Your name..." />
+          <button type="button" class="profile-save-name-btn" id="profile-save-name-btn">Save</button>
+          <button type="button" class="profile-cancel-edit-btn" id="profile-cancel-edit-btn">Cancel</button>
+        </div>
+        <div class="auth-avatar-options" id="profile-avatar-picker-panel" style="margin-top: 10px;">
+          <button type="button" class="avatar-opt-btn" data-avatar="🎬">🎬</button>
+          <button type="button" class="avatar-opt-btn" data-avatar="🍿">🍿</button>
+          <button type="button" class="avatar-opt-btn" data-avatar="🎧">🎧</button>
+          <button type="button" class="avatar-opt-btn" data-avatar="🌟">🌟</button>
+          <button type="button" class="avatar-opt-btn" data-avatar="🕶️">🕶️</button>
+          <button type="button" class="avatar-opt-btn" data-avatar="🎵">🎵</button>
+          <button type="button" class="avatar-opt-btn" data-avatar="🚀">🚀</button>
+          <button type="button" class="avatar-opt-btn" data-avatar="🎭">🎭</button>
+        </div>
+      </div>
+
+      <!-- User Engagement Stats -->
+      <div class="profile-stats-grid">
+        <div class="profile-stat-card" id="stat-card-mylist">
+          <span class="stat-icon">📑</span>
+          <span class="stat-value" id="profile-stat-mylist">0</span>
+          <span class="stat-label">In My List</span>
+        </div>
+        <div class="profile-stat-card" id="stat-card-favorites">
+          <span class="stat-icon">⭐</span>
+          <span class="stat-value" id="profile-stat-favorites">0</span>
+          <span class="stat-label">Favorites</span>
+        </div>
+        <div class="profile-stat-card" id="stat-card-ratings">
+          <span class="stat-icon">🌟</span>
+          <span class="stat-value" id="profile-stat-ratings">0</span>
+          <span class="stat-label">Rated Titles</span>
+        </div>
+      </div>
+
+      <!-- Taste Profile Chips -->
+      <div class="profile-section">
+        <h4 class="profile-section-title">Your Cinema &amp; Music Taste Profile</h4>
+        <div class="profile-tastes-chips" id="profile-tastes-chips">
+          <span class="taste-chip">🎬 Indian Cinema</span>
+          <span class="taste-chip">✨ High Energy</span>
+          <span class="taste-chip">🎵 Soulful Melodies</span>
+          <span class="taste-chip">⚡ Blockbusters</span>
+        </div>
+      </div>
+
+      <!-- Account Management Actions -->
+      <div class="profile-actions-section">
+        <button class="profile-action-btn-main" id="profile-open-login-btn">
+          <span>🔄 Switch Account / Sign In</span>
+        </button>
+        <button class="profile-action-btn-danger" id="profile-clear-data-btn">
+          <span>🗑️ Clear My Saved Collections</span>
+        </button>
+        <button class="profile-action-btn-logout" id="profile-logout-btn">
+          <span>🚪 Log Out</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
     </main>
 
     <!-- ======================================================== -->
@@ -957,73 +1116,6 @@
   </div>
 
   <!-- ======================================================== -->
-  <!-- KNOWLEDGE GRAPH CHAINING MODAL / DRAWER                  -->
-  <!-- ======================================================== -->
-  <div class="chain-modal-overlay hidden" id="chain-modal-overlay">
-    <div class="chain-modal-dialog" id="chain-modal-dialog">
-      <div class="modal-header">
-        <div class="modal-title-group">
-          <span class="modal-badge" id="modal-badge">Actor</span>
-          <h3 class="modal-name" id="modal-name">Entity Name</h3>
-        </div>
-        <button class="modal-close-btn" id="modal-close-btn">✕</button>
-      </div>
-
-      <div class="modal-body">
-        <div class="graph-quick-selector">
-          <span class="quick-lbl">Quick Explore Entity:</span>
-          <div class="quick-entity-chips">
-            <button class="entity-pick-btn" data-type="actor" data-name="Shah Rukh Khan">Shah Rukh Khan</button>
-            <button class="entity-pick-btn" data-type="composer" data-name="A.R. Rahman">A.R. Rahman</button>
-            <button class="entity-pick-btn" data-type="singer" data-name="Arijit Singh">Arijit Singh</button>
-            <button class="entity-pick-btn" data-type="director" data-name="S.S. Rajamouli">S.S. Rajamouli</button>
-            <button class="entity-pick-btn" data-type="actor" data-name="Alia Bhatt">Alia Bhatt</button>
-            <button class="entity-pick-btn" data-type="composer" data-name="Pritam">Pritam</button>
-          </div>
-        </div>
-
-        <div class="modal-stats" id="modal-stats"></div>
-
-        <div class="modal-section" id="section-modal-collabs">
-          <h4 class="modal-section-title">🤝 Frequent Collaborations &amp; Creative Partners</h4>
-          <div class="modal-chips-row" id="modal-collabs-list"></div>
-        </div>
-
-        <div class="modal-section" id="section-modal-movies">
-          <h4 class="modal-section-title">🎬 Linked Cinema &amp; Filmography</h4>
-          <div class="modal-cards-scroll" id="modal-movies-list"></div>
-        </div>
-
-        <div class="modal-section" id="section-modal-songs">
-          <h4 class="modal-section-title">🎵 Linked Songs &amp; Melodies</h4>
-          <div class="modal-cards-scroll" id="modal-songs-list"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ======================================================== -->
-  <!-- MY LIST / FAVORITES DRAWER MODAL                         -->
-  <!-- ======================================================== -->
-  <div class="list-drawer-overlay hidden" id="list-drawer-overlay">
-    <div class="list-drawer-dialog" id="list-drawer-dialog">
-      <div class="drawer-header">
-        <div class="drawer-title-group">
-          <span class="drawer-badge" id="drawer-badge">Saved Collection</span>
-          <h3 class="drawer-title" id="drawer-title">My List</h3>
-        </div>
-        <div class="drawer-header-actions">
-          <button class="drawer-clear-btn" id="drawer-clear-btn">Clear All</button>
-          <button class="drawer-close-btn" id="drawer-close-btn">✕</button>
-        </div>
-      </div>
-      <div class="drawer-body">
-        <div class="drawer-items-list" id="drawer-items-list"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ======================================================== -->
   <!-- WATCH AVAILABILITY & TECHNICAL INFORMATION MODAL         -->
   <!-- ======================================================== -->
   <div class="watch-modal-overlay hidden" id="watch-modal-overlay">
@@ -1180,6 +1272,8 @@
       <a href="#" target="_blank" class="toast-play-link" id="toast-play-link">Watch on YouTube ↗</a>
       <button class="toast-close" id="toast-close">✕</button>
     </div>
+  </div>
+
   <!-- Floating Quick Rating Popover -->
   <div class="rating-popover hidden" id="card-rating-popover">
     <div class="popover-arrow"></div>
@@ -1301,94 +1395,6 @@
           <span>⚡ Continue as Shiva (Quick Demo)</span>
         </button>
       </form>
-    </div>
-  </div>
-
-  <!-- ======================================================== -->
-  <!-- USER PROFILE & ACCOUNT DRAWER MODAL                      -->
-  <!-- ======================================================== -->
-  <div class="profile-drawer-overlay hidden" id="profile-drawer-overlay">
-    <div class="profile-drawer-box">
-      <div class="profile-drawer-header">
-        <div class="profile-header-main">
-          <div class="profile-drawer-avatar-wrap">
-            <div class="profile-drawer-avatar" id="profile-modal-avatar">🎬</div>
-            <button class="profile-avatar-edit-badge" id="profile-avatar-edit-badge" title="Change Avatar">✎</button>
-          </div>
-          <div class="profile-drawer-details">
-            <h3 class="profile-modal-name" id="profile-modal-name">Shiva</h3>
-            <span class="profile-modal-email" id="profile-modal-email">shiva@cinevibe.ai</span>
-            <div class="profile-modal-badge-row">
-              <span class="profile-tier-badge" id="profile-modal-tier">🌟 VIP Cinephile</span>
-              <span class="profile-member-date" id="profile-modal-joined">Active 2026</span>
-            </div>
-          </div>
-        </div>
-        <button class="profile-drawer-close" id="profile-drawer-close" aria-label="Close">✕</button>
-      </div>
-
-      <!-- Quick Inline Edit Form (Hidden by default) -->
-      <div class="profile-edit-panel hidden" id="profile-edit-panel">
-        <label>Update Display Name &amp; Persona:</label>
-        <div class="profile-edit-row">
-          <input type="text" id="profile-edit-name-input" placeholder="Your name..." />
-          <button type="button" class="profile-save-name-btn" id="profile-save-name-btn">Save</button>
-          <button type="button" class="profile-cancel-edit-btn" id="profile-cancel-edit-btn">Cancel</button>
-        </div>
-        <div class="auth-avatar-options" id="profile-avatar-picker-panel" style="margin-top: 10px;">
-          <button type="button" class="avatar-opt-btn" data-avatar="🎬">🎬</button>
-          <button type="button" class="avatar-opt-btn" data-avatar="🍿">🍿</button>
-          <button type="button" class="avatar-opt-btn" data-avatar="🎧">🎧</button>
-          <button type="button" class="avatar-opt-btn" data-avatar="🌟">🌟</button>
-          <button type="button" class="avatar-opt-btn" data-avatar="🕶️">🕶️</button>
-          <button type="button" class="avatar-opt-btn" data-avatar="🎵">🎵</button>
-          <button type="button" class="avatar-opt-btn" data-avatar="🚀">🚀</button>
-          <button type="button" class="avatar-opt-btn" data-avatar="🎭">🎭</button>
-        </div>
-      </div>
-
-      <!-- User Engagement Stats -->
-      <div class="profile-stats-grid">
-        <div class="profile-stat-card" id="stat-card-mylist">
-          <span class="stat-icon">📑</span>
-          <span class="stat-value" id="profile-stat-mylist">0</span>
-          <span class="stat-label">In My List</span>
-        </div>
-        <div class="profile-stat-card" id="stat-card-favorites">
-          <span class="stat-icon">⭐</span>
-          <span class="stat-value" id="profile-stat-favorites">0</span>
-          <span class="stat-label">Favorites</span>
-        </div>
-        <div class="profile-stat-card" id="stat-card-ratings">
-          <span class="stat-icon">🌟</span>
-          <span class="stat-value" id="profile-stat-ratings">0</span>
-          <span class="stat-label">Rated Titles</span>
-        </div>
-      </div>
-
-      <!-- Taste Profile Chips -->
-      <div class="profile-section">
-        <h4 class="profile-section-title">Your Cinema &amp; Music Taste Profile</h4>
-        <div class="profile-tastes-chips" id="profile-tastes-chips">
-          <span class="taste-chip">🎬 Indian Cinema</span>
-          <span class="taste-chip">✨ High Energy</span>
-          <span class="taste-chip">🎵 Soulful Melodies</span>
-          <span class="taste-chip">⚡ Blockbusters</span>
-        </div>
-      </div>
-
-      <!-- Account Management Actions -->
-      <div class="profile-actions-section">
-        <button class="profile-action-btn-main" id="profile-open-login-btn">
-          <span>🔄 Switch Account / Sign In</span>
-        </button>
-        <button class="profile-action-btn-danger" id="profile-clear-data-btn">
-          <span>🗑️ Clear My Saved Collections</span>
-        </button>
-        <button class="profile-action-btn-logout" id="profile-logout-btn">
-          <span>🚪 Log Out</span>
-        </button>
-      </div>
     </div>
   </div>
 
